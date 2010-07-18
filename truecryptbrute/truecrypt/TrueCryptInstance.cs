@@ -6,23 +6,25 @@ using System.Diagnostics;
 
 namespace truecryptbrute.truecrypt
 {
-    public class TrueCrypInstance
+    public class TrueCrypMounter
     {
         public int ProcessTimeOut = 5000;
         public  ProcessStartInfo InstanceStartUpInfo;
         public TrueCryptArgument TrueCryptArgument;
 
-        public TrueCrypInstance(ProcessStartInfo uSettings, TrueCryptArgument uTrueCryptArgument)
+        public TrueCrypMounter(ProcessStartInfo uSettings, TrueCryptArgument uTrueCryptArgument)
         {
             InstanceStartUpInfo = uSettings;
             TrueCryptArgument = uTrueCryptArgument;
         }
 
 
-        public bool MountTimeOut(TrueCryptContainer container, string password)
+        public bool MountTimeOut(string password)
         {
             if (!DriveExist(TrueCryptArgument.MountLetter))
             {
+                TrueCryptArgument.Password = password;
+                InstanceStartUpInfo.Arguments = TrueCryptArgument.ArgumentString;
                 try
                 {
                     var Instance = Process.Start(InstanceStartUpInfo);
@@ -51,12 +53,12 @@ namespace truecryptbrute.truecrypt
             try
             {
                 System.IO.DriveInfo drvInfo = new System.IO.DriveInfo(DriveLetter);
+                return drvInfo.IsReady;
             }
-            catch (System.IO.DriveNotFoundException)
+            catch (System.IO.DriveNotFoundException e)
             {
                 return false;
             }
-            return true;
         }
     }
 

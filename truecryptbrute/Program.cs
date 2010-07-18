@@ -16,7 +16,7 @@ namespace truecryptbrute
         [STAThread]
         static void Main()
         {
-            truecryptbrute TCB = new truecryptbrute();
+            truecryptbruter TCB = new truecryptbruter();
             TCB.ShowMainGUI();
         }
     }

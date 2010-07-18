@@ -65,7 +65,6 @@
     <Compile Include="truecryptbrute.cs" />
     <Compile Include="truecrypt\TrueCryptInstallation.cs" />
     <Compile Include="truecrypt\TrueCryptInstance.cs" />
-    <Compile Include="TrueCryptVolume.cs" />
     <Compile Include="truecrypt\TrueCryptArgument.cs" />
     <Compile Include="View\frmMain.ViewEvents.cs">
       <SubType>Form</SubType>

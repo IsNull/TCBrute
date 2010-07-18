@@ -10,13 +10,13 @@ namespace truecryptbrute.truecrypt
     {
         #region const strings
 
-        const string param_volume = "/v";
-        const string param_letter = "/l";
-        const string param_keyfile = "/k";
-        const string param_password = "/p";
-        const string param_mount = "/m";
-        const string param_quit = "/q";
-        const string param_silent = "/s";
+        const string param_volume = @"/v";
+        const string param_letter = @"/l";
+        const string param_keyfile = @"/k";
+        const string param_password = @"/p";
+        const string param_mount = @"/m";
+        const string param_quit = @"/q";
+        const string param_silent = @"/s";
 
         const string param_mntsystem = "sm";
 
@@ -30,8 +30,7 @@ namespace truecryptbrute.truecrypt
         private bool mIsSystemPartition = false;
         private bool mSilent = true;
         private bool mQuit = true;
-
-
+        private List<string> mKeyFileLst = new List<string>();  
         public string VolumePath
         {
             get { return mVolumePath; }
@@ -49,8 +48,8 @@ namespace truecryptbrute.truecrypt
         }
         public List<string> KeyFileLst
         {
-            get;
-            set;
+            get { return mKeyFileLst; }
+            set { mKeyFileLst = value; }
         }
 
         public bool IsSystemPartition
@@ -79,10 +78,9 @@ namespace truecryptbrute.truecrypt
             get
             {
 
-                string ArgumentString = mIsSystemPartition + " \"" + this.VolumePath + "\" ";
+                string ArgumentString = param_volume + " \"" + this.VolumePath + "\" ";
                 ArgumentString += param_letter + " \"" + this.MountLetter + "\" ";
-                ArgumentString += param_letter + " \"" + this.MountLetter + "\" ";
-
+                
                 foreach (var keyfilepath in this.KeyFileLst)
                 {
                     ArgumentString += param_keyfile + " \"" + keyfilepath + "\" ";
@@ -91,11 +89,13 @@ namespace truecryptbrute.truecrypt
                 if (this.IsSystemPartition)
                     ArgumentString += param_mount + " " + param_mntsystem + " ";
 
+                ArgumentString += param_password + " " + this.Password + " ";
+
                 if (this.Quit)
                     ArgumentString += param_quit + " ";
 
                 if (this.Silent)
-                    ArgumentString += param_quit + " ";
+                    ArgumentString += param_silent + " ";
 
                 return ArgumentString;
             }
