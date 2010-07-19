@@ -72,21 +72,21 @@ namespace truecryptbrute
             bool sucess = true;
 
             if(!File.Exists(this.Configuration.TrueCryptBinaryPath)) {
-                ValidationResult.Add("Can't find TrueCrypt Binary @ \"" + this.Configuration.TrueCryptBinaryPath + "\"");
+                ValidationResult.Add("ERROR: Can't find TrueCrypt Binary @ \"" + this.Configuration.TrueCryptBinaryPath + "\"");
                 sucess = false;
             }
             if(!File.Exists(this.Configuration.WordListPath)) {
-                ValidationResult.Add("Can't find WordList @ \"" + this.Configuration.WordListPath + "\"");
+                ValidationResult.Add("ERROR: Can't find WordList @ \"" + this.Configuration.WordListPath + "\"");
                 sucess = false;
             }
             if(!File.Exists(this.Configuration.ContainerPath)) {
-                ValidationResult.Add("Can't find Target Volume @ \"" + this.Configuration.ContainerPath + "\"");
+                ValidationResult.Add("ERROR: Can't find Target Volume @ \"" + this.Configuration.ContainerPath + "\"");
                 sucess = false;
             }
 
             foreach(var keyfilepath in this.Configuration.KeyFiles) {
                 if(!File.Exists(keyfilepath)){
-                    ValidationResult.Add("Can't find Keyfile @ \"" + keyfilepath + "\"");
+                    ValidationResult.Add("ERROR: Can't find Keyfile @ \"" + keyfilepath + "\"");
                     sucess = false;
                 }
             }

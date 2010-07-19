@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.txtLog = new System.Windows.Forms.TextBox();
             this.btnDoCrack = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -55,7 +56,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtTrueCryptBinaryPath = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.btnPause = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -79,6 +80,7 @@
             // tabPage1
             // 
             this.tabPage1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.tabPage1.Controls.Add(this.btnPause);
             this.tabPage1.Controls.Add(this.progressBar1);
             this.tabPage1.Controls.Add(this.txtLog);
             this.tabPage1.Controls.Add(this.btnDoCrack);
@@ -90,6 +92,13 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Main";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(24, 20);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(695, 23);
+            this.progressBar1.TabIndex = 2;
             // 
             // txtLog
             // 
@@ -363,14 +372,18 @@
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
-            // progressBar1
+            // btnPause
             // 
-            this.progressBar1.Location = new System.Drawing.Point(24, 20);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(695, 23);
-            this.progressBar1.TabIndex = 2;
+            this.btnPause.Location = new System.Drawing.Point(24, 49);
+            this.btnPause.Name = "btnPause";
+            this.btnPause.Size = new System.Drawing.Size(91, 23);
+            this.btnPause.TabIndex = 3;
+            this.btnPause.Text = "Pause.";
+            this.btnPause.UseVisualStyleBackColor = true;
+            this.btnPause.Visible = false;
+            this.btnPause.Click += new System.EventHandler(this.btnPause_Click);
             // 
-            // Main
+            // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -383,7 +396,7 @@
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "Main";
+            this.Name = "frmMain";
             this.Text = "true.crypt.brute - by securityvision.ch";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -430,6 +443,7 @@
         private System.Windows.Forms.TextBox txtLog;
         private System.Windows.Forms.Button btnDoCrack;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Button btnPause;
     }
 }
 

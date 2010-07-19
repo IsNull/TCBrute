@@ -67,6 +67,13 @@ namespace truecryptbrute.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap gfx_bkg {
+            get {
+                object obj = ResourceManager.GetObject("gfx_bkg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>

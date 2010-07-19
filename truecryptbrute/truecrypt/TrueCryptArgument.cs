@@ -19,7 +19,7 @@ namespace truecryptbrute.truecrypt
         const string param_silent = @"/s";
 
         const string param_mntsystem = "sm";
-
+        const string param_mntreadonly = "ro";
         #endregion
 
         #region Propertys
@@ -30,6 +30,7 @@ namespace truecryptbrute.truecrypt
         private bool mIsSystemPartition = false;
         private bool mSilent = true;
         private bool mQuit = true;
+        private bool mReadOnly = false;
         private List<string> mKeyFileLst = new List<string>();  
         public string VolumePath
         {
@@ -67,7 +68,10 @@ namespace truecryptbrute.truecrypt
             get { return mQuit; }
             set { mQuit = value; }
         }
-
+        public bool ReadOnly {
+            get { return mReadOnly; }
+            set { mReadOnly = value; }
+        }
         #endregion
 
         /// <summary>Build the Argument String from the given Options
@@ -77,7 +81,6 @@ namespace truecryptbrute.truecrypt
         {
             get
             {
-
                 string ArgumentString = param_volume + " \"" + this.VolumePath + "\" ";
                 ArgumentString += param_letter + " \"" + this.MountLetter + "\" ";
                 
@@ -88,6 +91,8 @@ namespace truecryptbrute.truecrypt
 
                 if (this.IsSystemPartition)
                     ArgumentString += param_mount + " " + param_mntsystem + " ";
+                if(this.ReadOnly)
+                    ArgumentString += param_mount + " " + param_mntreadonly + " ";
 
                 ArgumentString += param_password + " " + this.Password + " ";
 

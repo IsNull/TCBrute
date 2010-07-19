@@ -54,6 +54,12 @@
   <ItemGroup>
     <Compile Include="ConfigurationController.cs" />
     <Compile Include="CrackConfiguration.cs" />
+    <Compile Include="View\frmPassCracked.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\frmPassCracked.Designer.cs">
+      <DependentUpon>frmPassCracked.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,6 +76,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="wordlist\WordListProvider.cs" />
+    <EmbeddedResource Include="View\frmPassCracked.resx">
+      <DependentUpon>frmPassCracked.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -96,6 +105,7 @@
   <ItemGroup>
     <None Include="Skin\background.gif" />
     <None Include="Skin\tc.brute.bkg.jpg" />
+    <None Include="Resources\gfx_bkg.bmp" />
     <Content Include="SVLogo32.ico" />
   </ItemGroup>
   <ItemGroup />
