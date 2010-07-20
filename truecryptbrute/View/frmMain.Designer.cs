@@ -61,9 +61,11 @@
             this.txtTrueCryptBinaryPath = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.cboThreads = new System.Windows.Forms.ComboBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -72,7 +74,6 @@
             this.groupBox1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -111,14 +112,14 @@
             this.lblProgress.AutoSize = true;
             this.lblProgress.Location = new System.Drawing.Point(434, 52);
             this.lblProgress.Name = "lblProgress";
-            this.lblProgress.Size = new System.Drawing.Size(42, 13);
+            this.lblProgress.Size = new System.Drawing.Size(21, 13);
             this.lblProgress.TabIndex = 6;
-            this.lblProgress.Text = "01/999";
+            this.lblProgress.Text = "0%";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(167, 52);
+            this.label5.Location = new System.Drawing.Point(168, 52);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(43, 13);
             this.label5.TabIndex = 5;
@@ -129,6 +130,7 @@
             this.txtCurrentPass.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.txtCurrentPass.Location = new System.Drawing.Point(216, 49);
             this.txtCurrentPass.Name = "txtCurrentPass";
+            this.txtCurrentPass.ReadOnly = true;
             this.txtCurrentPass.Size = new System.Drawing.Size(194, 20);
             this.txtCurrentPass.TabIndex = 4;
             // 
@@ -339,7 +341,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(7, 52);
+            this.label4.Location = new System.Drawing.Point(7, 48);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(35, 13);
             this.label4.TabIndex = 12;
@@ -426,19 +428,30 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.label9);
             this.groupBox4.Controls.Add(this.label6);
             this.groupBox4.Controls.Add(this.cboThreads);
             this.groupBox4.Location = new System.Drawing.Point(20, 26);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(245, 73);
+            this.groupBox4.Size = new System.Drawing.Size(487, 87);
             this.groupBox4.TabIndex = 2;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Threading";
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(13, 52);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(461, 13);
+            this.label9.TabIndex = 2;
+            this.label9.Text = "Note: This parameter was automatic set to fit your system. Change only if you kno" +
+                "w what you do.";
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(24, 33);
+            this.label6.Location = new System.Drawing.Point(13, 22);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(74, 13);
             this.label6.TabIndex = 1;
@@ -463,38 +476,54 @@
             "14",
             "15",
             "16"});
-            this.cboThreads.Location = new System.Drawing.Point(104, 30);
+            this.cboThreads.Location = new System.Drawing.Point(93, 19);
             this.cboThreads.Name = "cboThreads";
             this.cboThreads.Size = new System.Drawing.Size(35, 21);
             this.cboThreads.TabIndex = 0;
             this.cboThreads.Text = "1";
             // 
-            // pictureBox1
+            // label7
             // 
-            this.pictureBox1.Image = global::truecryptbrute.Properties.Resources.tc_brute_bkg;
-            this.pictureBox1.Location = new System.Drawing.Point(-1, 0);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(799, 147);
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
+            this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.Color.Transparent;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label7.Location = new System.Drawing.Point(27, 40);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(150, 24);
+            this.label7.TabIndex = 2;
+            this.label7.Text = "true.crypt.brute 2";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.Color.Transparent;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label8.Location = new System.Drawing.Point(28, 64);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(185, 15);
+            this.label8.TabIndex = 3;
+            this.label8.Text = "by IsNull - securityvision.ch 2010 ";
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.BackgroundImage = global::truecryptbrute.Properties.Resources.tc_brute_bkg;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.CancelButton = this.BrowseWordlist;
             this.ClientSize = new System.Drawing.Size(793, 509);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.tabControl1);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "frmMain";
             this.Text = "true.crypt.brute - by securityvision.ch";
-            this.Load += new System.EventHandler(this.frmMain_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -509,8 +538,8 @@
             this.tabPage3.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -539,7 +568,6 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button btnOpenKeyFileDialoge;
         private System.Windows.Forms.CheckBox chkKeyfiles;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TextBox txtLog;
         private System.Windows.Forms.Button btnDoCrack;
         private System.Windows.Forms.ProgressBar progressBar1;
@@ -551,6 +579,9 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox cboThreads;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
     }
 }
 

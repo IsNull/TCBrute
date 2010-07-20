@@ -29,7 +29,7 @@ namespace truecryptbrute
 
             #region Validate UserInput
             this.cboThreads.Validating +=new CancelEventHandler(cboThreads_Validating);
-
+            this.txtWordListOffset.Validating +=new CancelEventHandler(txtWordListOffset_Validating);
             #endregion
 
             FindAndSetTCPath();
@@ -41,8 +41,26 @@ namespace truecryptbrute
 
         private void cboThreads_Validating(object sender, CancelEventArgs e) {
             int res;
-            e.Cancel = !Int32.TryParse((sender as ComboBox).Text, out res);
+            bool state = true;
+            if(!Int32.TryParse((sender as ComboBox).Text, out res)) {
+                if(res > 0) {
+                    state = false;
+                }
+            }
+            e.Cancel = state;
         }
+
+        private void txtWordListOffset_Validating(object sender, CancelEventArgs e) {
+            int res;
+            bool state = true;
+            if(!Int32.TryParse((sender as TextBox).Text, out res)) {
+                if(res > 0) {
+                    state = false;
+                }
+            }
+            e.Cancel = state;
+        }
+        
 
         #endregion
 
@@ -158,5 +176,6 @@ namespace truecryptbrute
             dlgKeyFile.ShowDialog();
             ConfigController.Configuration.KeyFiles = dlgKeyFile.KeyFiles;
         }
+
     }
 }

@@ -55,5 +55,9 @@ namespace truecryptbrute.View
                 }
             }
         }
+
+        private void btnRemove_Click(object sender, EventArgs e) {
+            throw new NotImplementedException();
+        }
     }
 }
