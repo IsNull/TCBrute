@@ -7,25 +7,18 @@ using System.IO;
 
 namespace truecryptbrute
 {
-    /// <summary>ConfigurationController (Singleton)
+    /// <summary>ConfigurationController 
     /// 
     /// </summary>
     public sealed class ConfigurationController
     {
-        static readonly ConfigurationController mInstance = new ConfigurationController();
         XmlSerializer CrackConfigSerializer = new XmlSerializer(typeof(CrackConfiguration));
 
 
-        static ConfigurationController() { }
-        ConfigurationController() { }
-
-        public static ConfigurationController Instance
-        {
-            get { return mInstance; }
-        }
+        public ConfigurationController() { }
 
 
-        private CrackConfiguration mConfiguration;
+        private CrackConfiguration mConfiguration = new CrackConfiguration();
         public CrackConfiguration Configuration
         {
             get { return mConfiguration; }

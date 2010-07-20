@@ -31,6 +31,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.lblProgress = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtCurrentPass = new System.Windows.Forms.TextBox();
+            this.btnPause = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.txtLog = new System.Windows.Forms.TextBox();
             this.btnDoCrack = new System.Windows.Forms.Button();
@@ -55,14 +59,19 @@
             this.btnBrowseTrueCrypt = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtTrueCryptBinaryPath = new System.Windows.Forms.TextBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.cboThreads = new System.Windows.Forms.ComboBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btnPause = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -70,6 +79,7 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(12, 164);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabControl1.Name = "tabControl1";
@@ -80,6 +90,9 @@
             // tabPage1
             // 
             this.tabPage1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.tabPage1.Controls.Add(this.lblProgress);
+            this.tabPage1.Controls.Add(this.label5);
+            this.tabPage1.Controls.Add(this.txtCurrentPass);
             this.tabPage1.Controls.Add(this.btnPause);
             this.tabPage1.Controls.Add(this.progressBar1);
             this.tabPage1.Controls.Add(this.txtLog);
@@ -92,6 +105,43 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Main";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // lblProgress
+            // 
+            this.lblProgress.AutoSize = true;
+            this.lblProgress.Location = new System.Drawing.Point(434, 52);
+            this.lblProgress.Name = "lblProgress";
+            this.lblProgress.Size = new System.Drawing.Size(42, 13);
+            this.lblProgress.TabIndex = 6;
+            this.lblProgress.Text = "01/999";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(167, 52);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(43, 13);
+            this.label5.TabIndex = 5;
+            this.label5.Text = "current:";
+            // 
+            // txtCurrentPass
+            // 
+            this.txtCurrentPass.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.txtCurrentPass.Location = new System.Drawing.Point(216, 49);
+            this.txtCurrentPass.Name = "txtCurrentPass";
+            this.txtCurrentPass.Size = new System.Drawing.Size(194, 20);
+            this.txtCurrentPass.TabIndex = 4;
+            // 
+            // btnPause
+            // 
+            this.btnPause.Location = new System.Drawing.Point(24, 49);
+            this.btnPause.Name = "btnPause";
+            this.btnPause.Size = new System.Drawing.Size(91, 23);
+            this.btnPause.TabIndex = 3;
+            this.btnPause.Text = "Pause.";
+            this.btnPause.UseVisualStyleBackColor = true;
+            this.btnPause.Visible = false;
+            this.btnPause.Click += new System.EventHandler(this.btnPause_Click);
             // 
             // progressBar1
             // 
@@ -163,6 +213,7 @@
             this.btnOpenKeyFileDialoge.TabIndex = 1;
             this.btnOpenKeyFileDialoge.Text = "Config Keyfiles";
             this.btnOpenKeyFileDialoge.UseVisualStyleBackColor = true;
+            this.btnOpenKeyFileDialoge.Click += new System.EventHandler(this.btnOpenKeyFileDialoge_Click);
             // 
             // chkKeyfiles
             // 
@@ -362,6 +413,62 @@
             this.txtTrueCryptBinaryPath.Size = new System.Drawing.Size(253, 20);
             this.txtTrueCryptBinaryPath.TabIndex = 1;
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.groupBox4);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(757, 287);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Global Config";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.label6);
+            this.groupBox4.Controls.Add(this.cboThreads);
+            this.groupBox4.Location = new System.Drawing.Point(20, 26);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(245, 73);
+            this.groupBox4.TabIndex = 2;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Threading";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(24, 33);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(74, 13);
+            this.label6.TabIndex = 1;
+            this.label6.Text = "Thread count:";
+            // 
+            // cboThreads
+            // 
+            this.cboThreads.FormattingEnabled = true;
+            this.cboThreads.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16"});
+            this.cboThreads.Location = new System.Drawing.Point(104, 30);
+            this.cboThreads.Name = "cboThreads";
+            this.cboThreads.Size = new System.Drawing.Size(35, 21);
+            this.cboThreads.TabIndex = 0;
+            this.cboThreads.Text = "1";
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::truecryptbrute.Properties.Resources.tc_brute_bkg;
@@ -371,17 +478,6 @@
             this.pictureBox1.Size = new System.Drawing.Size(799, 147);
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
-            // 
-            // btnPause
-            // 
-            this.btnPause.Location = new System.Drawing.Point(24, 49);
-            this.btnPause.Name = "btnPause";
-            this.btnPause.Size = new System.Drawing.Size(91, 23);
-            this.btnPause.TabIndex = 3;
-            this.btnPause.Text = "Pause.";
-            this.btnPause.UseVisualStyleBackColor = true;
-            this.btnPause.Visible = false;
-            this.btnPause.Click += new System.EventHandler(this.btnPause_Click);
             // 
             // frmMain
             // 
@@ -398,6 +494,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "frmMain";
             this.Text = "true.crypt.brute - by securityvision.ch";
+            this.Load += new System.EventHandler(this.frmMain_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -409,6 +506,9 @@
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
@@ -444,6 +544,13 @@
         private System.Windows.Forms.Button btnDoCrack;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Button btnPause;
+        private System.Windows.Forms.Label lblProgress;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtCurrentPass;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox cboThreads;
     }
 }
 

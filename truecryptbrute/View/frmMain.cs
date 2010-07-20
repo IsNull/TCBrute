@@ -11,6 +11,7 @@ namespace truecryptbrute
 {
     public partial class frmMain : Form
     {
+        private bool bDontUpdate = false;
         public frmMain()
         {
             InitializeComponent();
@@ -26,9 +27,24 @@ namespace truecryptbrute
 
             #endregion
 
+            #region Validate UserInput
+            this.cboThreads.Validating +=new CancelEventHandler(cboThreads_Validating);
+
+            #endregion
+
             FindAndSetTCPath();
+            FindAndSetThreadCnt();
         }
 
+
+        #region Validating
+
+        private void cboThreads_Validating(object sender, CancelEventArgs e) {
+            int res;
+            e.Cancel = !Int32.TryParse((sender as ComboBox).Text, out res);
+        }
+
+        #endregion
 
         #region Events
 
@@ -62,47 +78,45 @@ namespace truecryptbrute
         private void btnSaveConfic_Click(object sender, EventArgs e) {
             SaveFileDialog SaveConfigDlg = new SaveFileDialog();
             if(SaveConfigDlg.ShowDialog() == DialogResult.OK) {
-                ConfigurationController.Instance.SaveCrackConfiguration(SaveConfigDlg.FileName);
+                ConfigController.SaveCrackConfiguration(SaveConfigDlg.FileName);
             }
         }
         private void btnLoadJobConfic_Click(object sender, EventArgs e) {
             OpenFileDialog OpenDlg = new OpenFileDialog();
             if(OpenDlg.ShowDialog() == DialogResult.OK) {
-                if(!ConfigurationController.Instance.LoadCrackConfiguration(OpenDlg.FileName)) {
+                if(!ConfigController.LoadCrackConfiguration(OpenDlg.FileName)) {
                     MessageBox.Show("Failed to load settings - is this a vaild configuration file?");
                 }
             }
-            this.Settings = ConfigurationController.Instance.Configuration;
+            this.Settings = ConfigController.Configuration;
         }
 
         private void UpdateConfig() {
-            ConfigurationController.Instance.Configuration = this.Settings;
-        }
-
-
-        private CrackConfiguration Settings {
-            get {
-                CrackConfiguration ThisConfig = new CrackConfiguration()
-                {
-                    TrueCryptBinaryPath = this.txtTrueCryptBinaryPath.Text,
-                    ContainerPath = this.txtTargetVolume.Text,
-                    MountAsSystemVolume = this.chkIsSystemVol.Checked,
-                    WordListPath = this.txtWordListPath.Text,
-                };
+            if(!bDontUpdate) {
+                var crkconfg = ConfigController.Configuration;
+                crkconfg.TrueCryptBinaryPath = this.txtTrueCryptBinaryPath.Text;
+                crkconfg.ContainerPath = this.txtTargetVolume.Text;
+                crkconfg.MountAsSystemVolume = this.chkIsSystemVol.Checked;
+                crkconfg.UseKeyFiles = this.chkKeyfiles.Checked;
+                crkconfg.WordListPath = this.txtWordListPath.Text;
                 int offset;
                 if(Int32.TryParse(this.txtWordListOffset.Text, out offset)) {
-                    ThisConfig.WordListOffset = offset;
+                    crkconfg.WordListOffset = offset;
                 } else {
-                    ThisConfig.WordListOffset = 0;
+                    crkconfg.WordListOffset = 0;
                 }
-                return ThisConfig;
             }
+        }
+
+        private CrackConfiguration Settings {
             set {
+                bDontUpdate = true;
                 this.txtTrueCryptBinaryPath.Text = value.TrueCryptBinaryPath;
                 this.txtTargetVolume.Text = value.ContainerPath;
                 this.chkIsSystemVol.Checked = value.MountAsSystemVolume;
                 this.txtWordListPath.Text = value.WordListPath;
                 this.txtWordListOffset.Text = value.WordListOffset.ToString();
+                bDontUpdate = false;
             }
 
         }
@@ -135,14 +149,14 @@ namespace truecryptbrute
         private void FindAndSetTCPath() {
             this.txtTrueCryptBinaryPath.Text = truecrypt.TrueCryptInstallation.FindTrueCryptInstallation();
         }
+        private void FindAndSetThreadCnt() {
+            this.cboThreads.Text = Environment.ProcessorCount.ToString();
+        }
 
-
-
-
-
-
-
-
-
+        private void btnOpenKeyFileDialoge_Click(object sender, EventArgs e) {
+            var dlgKeyFile = new View.frmKeyfiles(ConfigController.Configuration.KeyFiles);
+            dlgKeyFile.ShowDialog();
+            ConfigController.Configuration.KeyFiles = dlgKeyFile.KeyFiles;
+        }
     }
 }

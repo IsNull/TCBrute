@@ -25,6 +25,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPassCracked));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.txtCrackedPass = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -57,6 +58,7 @@
             this.ClientSize = new System.Drawing.Size(416, 153);
             this.Controls.Add(this.txtCrackedPass);
             this.Controls.Add(this.pictureBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmPassCracked";
             this.Text = "Password Cracked!";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

@@ -16,13 +16,13 @@ namespace truecryptbrute
         //WordListProvider WordListManager;
         frmMain MainForm;
         int WordListLineCnt;
-        List<string> InternalReservedMountLetter = new List<string>();
+        List<string> InternalReservedMountLetter;
         bool bStopAllCrackThreads = false;
         Stopwatch PerformanceWatch;
 
         public truecryptbruter()
         {
-            ConfigController = ConfigurationController.Instance;
+            ConfigController = new ConfigurationController();
         }
 
         public void ShowMainGUI() {
@@ -37,6 +37,7 @@ namespace truecryptbrute
 
 
         private void MainForm_StartCrackJob(object sender, EventArgs e) {
+            MainForm.SetButtonStart(false);
             PrepareCrackOperation(); // go for it ;)
         }
 
@@ -45,11 +46,14 @@ namespace truecryptbrute
             List<string> Descr;
 
             MainForm.LogClear();
+           
             MainForm.LogAppend("Prepare new crack Operation...");
-            ConfigController = ConfigurationController.Instance;
+            InternalReservedMountLetter = new List<string>();
+            ConfigController.Configuration = MainForm.CrackConfig;
             if(!ConfigController.ValidateConfiguration(out Descr)) {
                 MainForm.LogAppend(Descr);
                 MainForm.LogAppend("Resolve the above errors and try again. Operation aborted.");
+                MainForm.SetButtonStart(true);
                 return;
             }
             MainForm.LogAppend("Configuration seems valid.");
@@ -60,6 +64,7 @@ namespace truecryptbrute
             MainForm.LogAppend("Wordlist anaysis: " + WordListProvider.Instance.LineCount + " Passwords!");
 
             // Start the Crack Threads:
+            MainForm.LogAppend("Starting Crack Threads...");
             Thread CrackThread = new Thread(new ThreadStart(CrackThreadEntryPoint));
             Thread CrackThread2 = new Thread(new ThreadStart(CrackThreadEntryPoint));
             PerformanceWatch = Stopwatch.StartNew();
@@ -90,6 +95,7 @@ namespace truecryptbrute
         }
 
         private void PasswordCracked(string thispass, string volumeletter) {
+            MainForm.SetButtonStart(true);
             PerformanceWatch.Stop();
             bStopAllCrackThreads = true;
             MainForm.LogAppend("Cracked with password: " + thispass);
@@ -102,7 +108,7 @@ namespace truecryptbrute
 
 
         private void Instance_WordListProgressEvent(object sender, WordListEventArgs e){
-            MainForm.SetProgress(100 / WordListLineCnt * e.WordListCurrentLine);
+            MainForm.SetProgress(e);
         }
 
         private void Crack(TrueCrypMounter TCM){
@@ -116,7 +122,6 @@ namespace truecryptbrute
                     //MainForm.LogAppend("CT{" + Thread.CurrentThread.ManagedThreadId + "} failed pass: " + thispass);
                 }
             }
-
         }
 
 
@@ -127,6 +132,9 @@ namespace truecryptbrute
             Arg.IsSystemPartition = config.MountAsSystemVolume;
             Arg.MountLetter = FindNextAvailableDriveLetter();
             Arg.VolumePath = config.ContainerPath;
+            if(config.UseKeyFiles) {
+                Arg.KeyFileLst = config.KeyFiles;
+            }
             Arg.Quit = true;
             Arg.Silent = true;
             Arg.ReadOnly = true;
@@ -142,7 +150,8 @@ namespace truecryptbrute
 
 
         public string FindNextAvailableDriveLetter() {
-            lock(this) {
+
+            lock(InternalReservedMountLetter) {
                 var AvaiableDriveList = new List<string>(25);
 
                 int lowerBound = Convert.ToInt16('d');

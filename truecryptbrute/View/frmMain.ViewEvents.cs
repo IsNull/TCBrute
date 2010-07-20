@@ -17,6 +17,11 @@ namespace truecryptbrute
     {
         public event SimpleEventHandler StartCrackJob;
         public event SimpleEventHandler PauseCrackJob;
+        private ConfigurationController ConfigController = new ConfigurationController();
+
+        public CrackConfiguration CrackConfig {
+            get { return ConfigController.Configuration; }
+        }
 
         private void btnDoCrack_Click(object sender, EventArgs e) {
             if(StartCrackJob != null)
@@ -25,8 +30,7 @@ namespace truecryptbrute
         }
 
         private void btnPause_Click(object sender, EventArgs e) {
-
-
+            throw new NotImplementedException();
         }
 
 
@@ -59,15 +63,20 @@ namespace truecryptbrute
 
         #region Progress
 
-        public void SetProgress(int percent){
+        public void SetProgress(WordList.WordListEventArgs e){
 
             if(this.InvokeRequired) {
-                BeginInvoke(new GParameterDelegate<int>(SetProgress), new object[] { percent });
+                BeginInvoke(new GParameterDelegate<WordList.WordListEventArgs>(SetProgress), new object[] { e });
                 return;
             } else {
+                float full = e.WordListLineCount;
+                float current = e.WordListCurrentLine;
+                int percent = (int)(100f / full * current);
                 percent = (percent > 100) ? 100 : percent;
                 percent = (percent < 0) ? 0 : percent;
-                this.progressBar1.Value = percent;
+                this.progressBar1.Value = (int)percent;
+                this.txtCurrentPass.Text = e.WordListCurrentPass;
+                this.lblProgress.Text = e.WordListCurrentLine + "/" + e.WordListLineCount + "[" + percent + "%]";
             }
         }
 

@@ -12,9 +12,13 @@ namespace truecryptbrute.WordList
     public class WordListEventArgs : EventArgs
     {
         public int WordListCurrentLine = 0;
+        public int WordListLineCount = 0;
+        public string WordListCurrentPass = "";
 
-        public WordListEventArgs(int uWordListCurrentLine) {
+        public WordListEventArgs(int uWordListCurrentLine, int uWordListLineCount, string uPass) {
             WordListCurrentLine = uWordListCurrentLine;
+            WordListLineCount = uWordListLineCount;
+            WordListCurrentPass = uPass;
         }
     }
 
@@ -69,14 +73,16 @@ namespace truecryptbrute.WordList
             get{ return mLineReadCount; }
             set {
                 mLineReadCount = value;
-                if(WordListProgressEvent != null)
-                    WordListProgressEvent(this, new WordListEventArgs(mLineReadCount));
             }
         }
 
         public string NextPassword() {
-            ++this.CurrentLine;
-           return WordListReader.ReadLine();
+            var pass = WordListReader.ReadLine();
+            if(pass != null)
+                ++this.CurrentLine;
+            if(WordListProgressEvent != null)
+                WordListProgressEvent(this, new WordListEventArgs(mLineReadCount, mLineCount, pass));
+            return pass;
         }
     }
 }

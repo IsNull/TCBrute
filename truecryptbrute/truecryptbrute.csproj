@@ -54,6 +54,12 @@
   <ItemGroup>
     <Compile Include="ConfigurationController.cs" />
     <Compile Include="CrackConfiguration.cs" />
+    <Compile Include="View\frmKeyfiles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\frmKeyfiles.Designer.cs">
+      <DependentUpon>frmKeyfiles.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\frmPassCracked.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,6 +82,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="wordlist\WordListProvider.cs" />
+    <EmbeddedResource Include="View\frmKeyfiles.resx">
+      <DependentUpon>frmKeyfiles.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\frmPassCracked.resx">
       <DependentUpon>frmPassCracked.cs</DependentUpon>
     </EmbeddedResource>
