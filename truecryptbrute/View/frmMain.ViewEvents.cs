@@ -17,11 +17,8 @@ namespace truecryptbrute
     {
         public event SimpleEventHandler StartCrackJob;
         public event SimpleEventHandler PauseCrackJob;
-        private ConfigurationController ConfigController = new ConfigurationController();
 
-        public CrackConfiguration CrackConfig {
-            get { return ConfigController.Configuration; }
-        }
+        private ConfigurationController ConfigController = new ConfigurationController();
 
         private void btnDoCrack_Click(object sender, EventArgs e) {
             if(StartCrackJob != null)
@@ -30,9 +27,9 @@ namespace truecryptbrute
         }
 
         private void btnPause_Click(object sender, EventArgs e) {
-            throw new NotImplementedException();
+            if(PauseCrackJob != null)
+                PauseCrackJob(this, new EventArgs());
         }
-
 
         #region Log
 

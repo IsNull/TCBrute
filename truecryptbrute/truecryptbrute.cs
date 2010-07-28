@@ -16,9 +16,12 @@ namespace truecryptbrute
         //WordListProvider WordListManager;
         frmMain MainForm;
         int WordListLineCnt;
-        List<string> InternalReservedMountLetter;
         bool bStopAllCrackThreads = false;
+        bool bIsCrackOperationFinished = true;
         Stopwatch PerformanceWatch;
+        Stopwatch PerformanceWatchInDLL = new Stopwatch();
+        VolumeHeader header;
+        List<Thread> crackthreadlist = new List<Thread>();
 
         public truecryptbruter()
         {
@@ -31,30 +34,46 @@ namespace truecryptbrute
             MainForm = new frmMain();
 
             MainForm.StartCrackJob += new SimpleEventHandler(MainForm_StartCrackJob);
-
+            MainForm.PauseCrackJob +=new SimpleEventHandler(MainForm_PauseCrackJob);
+            MainForm.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
             Application.Run(MainForm);
         }
 
 
         private void MainForm_StartCrackJob(object sender, EventArgs e) {
             MainForm.SetButtonStart(false);
-            PrepareCrackOperation(); // go for it ;)
+
+            if(bIsCrackOperationFinished) {
+                if(PrepareCrackOperation()) {  // set up new crack operation
+                    StartWork(); // go for it ;)  
+                }
+            } else {
+                StartWork(); // go for it ;)  
+            }
+
+        }
+
+        private void MainForm_PauseCrackJob(object sender, EventArgs e) {
+            StopAllCrackThreads();
+        }
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
+            Application.Exit();
         }
 
 
-        public void PrepareCrackOperation() {
+
+        public bool PrepareCrackOperation() {
             List<string> Descr;
 
             MainForm.LogClear();
            
             MainForm.LogAppend("Prepare new crack Operation...");
-            InternalReservedMountLetter = new List<string>();
             ConfigController.Configuration = MainForm.CrackConfig;
             if(!ConfigController.ValidateConfiguration(out Descr)) {
                 MainForm.LogAppend(Descr);
                 MainForm.LogAppend("Resolve the above errors and try again. Operation aborted.");
                 MainForm.SetButtonStart(true);
-                return;
+                return false;
             }
             MainForm.LogAppend("Configuration seems valid.");
             MainForm.LogAppend("Analyzing Wordlist...");
@@ -63,123 +82,116 @@ namespace truecryptbrute
             WordListLineCnt = WordListProvider.Instance.LineCount;
             MainForm.LogAppend("Wordlist anaysis: " + WordListProvider.Instance.LineCount + " Passwords!");
 
-            // Start the Crack Threads:
-            MainForm.LogAppend("Starting Crack Threads...");
-            Thread CrackThread = new Thread(new ThreadStart(CrackThreadEntryPoint));
-            Thread CrackThread2 = new Thread(new ThreadStart(CrackThreadEntryPoint));
-            PerformanceWatch = Stopwatch.StartNew();
-            CrackThread.Start();
-            CrackThread2.Start();
-
-            PerformanceWatch.Start();
-        }
-
-
-        private void CrackThreadEntryPoint() {
-
-            var TCMounter = CreateTrueCrypMounter(ConfigController.Configuration);
-
-            var executableName = Application.ExecutablePath;
-            var executableFile = new FileInfo(executableName);
-            var TrueCryptBinaryFile = new FileInfo(TCMounter.InstanceStartUpInfo.FileName);
-            var executableDirectoryName = executableFile.DirectoryName;
-
-            var NewTrueCryptThreadBinary = executableDirectoryName + "\\" + TrueCryptBinaryFile.Name + "TCB_" + Thread.CurrentThread.ManagedThreadId + ".exe";
-            if(!File.Exists(NewTrueCryptThreadBinary)) {
-                TrueCryptBinaryFile.CopyTo(NewTrueCryptThreadBinary);
+            try {
+                header = VolumeHeaderHelper.ReadVolumeHeaderFromFile(ConfigController.Configuration.ContainerPath);
+            } catch(IOException e) {
+                MessageBox.Show("Can't read Volume Header: " + e.Message);
+                MainForm.LogAppend("Flow interrupted!");
+                return false;
             }
-            TCMounter.InstanceStartUpInfo.FileName = NewTrueCryptThreadBinary;
-            
-            MainForm.LogAppend("TEP{" + Thread.CurrentThread.ManagedThreadId + "}: Starting Crack Thread @" + TCMounter.TrueCryptArgument.MountLetter.ToUpperInvariant() + " destination.");
-            Crack(TCMounter);
+            return true;
         }
 
-        private void PasswordCracked(string thispass, string volumeletter) {
-            MainForm.SetButtonStart(true);
-            PerformanceWatch.Stop();
+
+        /// <summary>This Method starts the Threads. It can even be used to resume the work, as we have set globally definded our wordlist calss wich handles the password flow.
+        /// 
+        /// </summary>
+        private void StartWork(){
+            Thread CrackThread;
+
+            MainForm.LogAppend("Starting Crack Threads...");
+
+            bStopAllCrackThreads = false;
+            bIsCrackOperationFinished = false;
+
+            int thread_count = ConfigController.Configuration.ThreadCount;
+
+            PerformanceWatch = Stopwatch.StartNew();
+            PerformanceWatch.Start();
+            for(int i = 1; thread_count >= i; i++) {
+                CrackThread = new Thread(new ThreadStart(CrackThreadEntryPoint));
+                crackthreadlist.Add(CrackThread);
+                CrackThread.Start();
+            }
+        }
+
+
+        /// <summary>
+        /// This is the Main EP for the Crack Threads
+        /// </summary>
+        private void CrackThreadEntryPoint() {
+            MainForm.LogAppend("TEP{" + Thread.CurrentThread.ManagedThreadId + "}: Starting Crack Thread...");
+            Crack();
+        }
+
+        private void Crack(){
+            string thispass;
+
+            while((thispass = WordListProvider.Instance.NextPassword()) != null && !bStopAllCrackThreads) {
+
+                if(header.DecryptVolumeHeader(ClsPassword.GetPasswordStructure(thispass))) {
+                    PasswordCracked(thispass);
+                    break;
+                } else {
+                    // failed pass
+                }
+            }
+            if(thispass == null) {
+                WordListFinished();
+            } else {
+                bIsCrackOperationFinished = true;
+                ThreadStoped();
+            }
+        }
+
+
+        private void StopAllCrackThreads() {
+
             bStopAllCrackThreads = true;
-            MainForm.LogAppend("Cracked with password: " + thispass);
+            PerformanceWatch.Stop();
+            MainForm.LogAppend("Stoping crack threads... ");
+            MainForm.LogAppend("Elapsed Time: " + PerformanceWatch.ElapsedMilliseconds);
+            
+            MainForm.SetButtonStart(true);
+        }
 
-            MainForm.LogAppend("This Crack took ms: " + PerformanceWatch.ElapsedMilliseconds);
-
+        private void PasswordCracked(string thispass) {
+            StopAllCrackThreads();
+            bIsCrackOperationFinished = true;
+            MainForm.LogAppend("Password Cracked! " + thispass);
             View.frmPassCracked DlgPassCracked = new View.frmPassCracked(thispass);
             DlgPassCracked.ShowDialog();
         }
 
+        private void WordListFinished() {
+            //StopAllCrackThreads();
+            bIsCrackOperationFinished = true;
+            MainForm.LogAppend("Password not found withhin this wordlist. ");
+        }
 
-        private void Instance_WordListProgressEvent(object sender, WordListEventArgs e){
+        private void ThreadStoped() {
+            MainForm.LogAppend("Thread stopped for reason.");
+        }
+
+        private void SuspendCrackThreads() {
+            
+            foreach(var thread in crackthreadlist) {
+                thread.Suspend();
+            }
+        }
+        private void ResumeCrackThreads() {
+            
+            foreach(var thread in crackthreadlist) {
+                thread.Resume();
+            }
+        }
+
+
+        private void Instance_WordListProgressEvent(object sender, WordListEventArgs e) {
             MainForm.SetProgress(e);
         }
 
-        private void Crack(TrueCrypMounter TCM){
-            string thispass;
-            while((thispass = WordListProvider.Instance.NextPassword()) != null  && !bStopAllCrackThreads){
-                if(TCM.MountTimeOut(thispass)) {
-                    PasswordCracked(thispass, "unknown");
-                    break;
-                } else {
-                    //failed pass
-                    //MainForm.LogAppend("CT{" + Thread.CurrentThread.ManagedThreadId + "} failed pass: " + thispass);
-                }
-            }
-        }
 
-
-
-        private TrueCrypMounter CreateTrueCrypMounter(CrackConfiguration config){
-
-            TrueCryptArgument Arg = new TrueCryptArgument();
-            Arg.IsSystemPartition = config.MountAsSystemVolume;
-            Arg.MountLetter = FindNextAvailableDriveLetter();
-            Arg.VolumePath = config.ContainerPath;
-            if(config.UseKeyFiles) {
-                Arg.KeyFileLst = config.KeyFiles;
-            }
-            Arg.Quit = true;
-            Arg.Silent = true;
-            Arg.ReadOnly = true;
-
-            var StartInfo = new System.Diagnostics.ProcessStartInfo();
-            StartInfo.FileName = config.TrueCryptBinaryPath;
-
-            truecrypt.TrueCrypMounter Instance = new TrueCrypMounter(StartInfo, Arg);
-
-            return Instance;
-        }
-
-
-
-        public string FindNextAvailableDriveLetter() {
-
-            lock(InternalReservedMountLetter) {
-                var AvaiableDriveList = new List<string>(25);
-
-                int lowerBound = Convert.ToInt16('d');
-                int upperBound = Convert.ToInt16('z');
-                for(int i = lowerBound; i < upperBound; i++) {
-                    char driveLetter = (char)i;
-                    AvaiableDriveList.Add(driveLetter.ToString());
-                }
-
-                // remove all already used drives
-                string[] drives = Environment.GetLogicalDrives();
-                foreach(string drive in drives) {
-                    AvaiableDriveList.Remove(drive.Substring(0, 1).ToLower());
-                }
-
-                // remove all Internaly reserved Drives
-                foreach(var drive in InternalReservedMountLetter) {
-                    AvaiableDriveList.Remove(drive.ToLower());
-                }
-
-                if(AvaiableDriveList.Count > 0) {
-                    InternalReservedMountLetter.Add(AvaiableDriveList[0]);
-                    return AvaiableDriveList[0];
-                } else {
-                    throw (new ApplicationException("No free drives available."));
-                }
-            }
-        }
 
     }
 }

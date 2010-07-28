@@ -14,25 +14,28 @@ namespace truecryptbrute
         private bool bDontUpdate = false;
         public frmMain()
         {
+            frmAbout abtoox = new frmAbout();
+            abtoox.ShowDialog();
             InitializeComponent();
 
             #region Control Change Events
 
             this.txtTargetVolume.TextChanged +=new EventHandler(txtTargetVolume_TextChanged);
-            this.txtTrueCryptBinaryPath.TextChanged +=new EventHandler(txtTrueCryptBinaryPath_TextChanged);
             this.txtWordListPath.TextChanged += new EventHandler(txtWordListPath_TextChanged);
             this.txtWordListOffset.TextChanged += new EventHandler(txtWordListOffset_TextChanged);
             this.chkIsSystemVol.CheckedChanged += new EventHandler(chkIsSystemVol_CheckedChanged);
             this.chkKeyfiles.CheckedChanged += new EventHandler(chkKeyfiles_CheckedChanged);
+            this.cboThreads.TextChanged += new EventHandler(cboThreads_TextChanged);
 
             #endregion
 
             #region Validate UserInput
+
             this.cboThreads.Validating +=new CancelEventHandler(cboThreads_Validating);
             this.txtWordListOffset.Validating +=new CancelEventHandler(txtWordListOffset_Validating);
+
             #endregion
 
-            FindAndSetTCPath();
             FindAndSetThreadCnt();
         }
 
@@ -42,7 +45,7 @@ namespace truecryptbrute
         private void cboThreads_Validating(object sender, CancelEventArgs e) {
             int res;
             bool state = true;
-            if(!Int32.TryParse((sender as ComboBox).Text, out res)) {
+            if(Int32.TryParse((sender as ComboBox).Text, out res)) {
                 if(res > 0) {
                     state = false;
                 }
@@ -53,8 +56,8 @@ namespace truecryptbrute
         private void txtWordListOffset_Validating(object sender, CancelEventArgs e) {
             int res;
             bool state = true;
-            if(!Int32.TryParse((sender as TextBox).Text, out res)) {
-                if(res > 0) {
+            if(Int32.TryParse((sender as TextBox).Text, out res)) {
+                if(res >= 0) {
                     state = false;
                 }
             }
@@ -89,9 +92,15 @@ namespace truecryptbrute
                 this.btnOpenKeyFileDialoge.Enabled = false;
             }
         }
+        private void cboThreads_TextChanged(object sender, EventArgs e) {
+            UpdateConfig();
+        }
+        
         
 
         #endregion
+
+        #region Configruation
 
         private void btnSaveConfic_Click(object sender, EventArgs e) {
             SaveFileDialog SaveConfigDlg = new SaveFileDialog();
@@ -110,9 +119,9 @@ namespace truecryptbrute
         }
 
         private void UpdateConfig() {
+            int threads; 
             if(!bDontUpdate) {
                 var crkconfg = ConfigController.Configuration;
-                crkconfg.TrueCryptBinaryPath = this.txtTrueCryptBinaryPath.Text;
                 crkconfg.ContainerPath = this.txtTargetVolume.Text;
                 crkconfg.MountAsSystemVolume = this.chkIsSystemVol.Checked;
                 crkconfg.UseKeyFiles = this.chkKeyfiles.Checked;
@@ -123,30 +132,33 @@ namespace truecryptbrute
                 } else {
                     crkconfg.WordListOffset = 0;
                 }
+                if(Int32.TryParse(this.cboThreads.Text, out threads)) {
+                    crkconfg.ThreadCount = threads;
+                } else {
+                    crkconfg.ThreadCount = 1;
+                }
             }
+        }
+        
+        public CrackConfiguration CrackConfig {
+            get { return ConfigController.Configuration; }
         }
 
         private CrackConfiguration Settings {
             set {
                 bDontUpdate = true;
-                this.txtTrueCryptBinaryPath.Text = value.TrueCryptBinaryPath;
                 this.txtTargetVolume.Text = value.ContainerPath;
                 this.chkIsSystemVol.Checked = value.MountAsSystemVolume;
                 this.txtWordListPath.Text = value.WordListPath;
                 this.txtWordListOffset.Text = value.WordListOffset.ToString();
+                this.cboThreads.Text = value.ThreadCount.ToString();
                 bDontUpdate = false;
             }
 
         }
+        #endregion
 
         #region File Browsers
-
-        private void btnBrowseTrueCrypt_Click(object sender, EventArgs e) {
-            OpenFileDialog OpenDlg = new OpenFileDialog();
-            if(OpenDlg.ShowDialog() == DialogResult.OK) {
-                this.txtTrueCryptBinaryPath.Text = OpenDlg.FileName;
-            }
-        }
 
         private void btnBrowseContainer_Click(object sender, EventArgs e) {
             OpenFileDialog OpenDlg = new OpenFileDialog();
@@ -164,9 +176,6 @@ namespace truecryptbrute
 
         #endregion
 
-        private void FindAndSetTCPath() {
-            this.txtTrueCryptBinaryPath.Text = truecrypt.TrueCryptInstallation.FindTrueCryptInstallation();
-        }
         private void FindAndSetThreadCnt() {
             this.cboThreads.Text = Environment.ProcessorCount.ToString();
         }
@@ -176,6 +185,9 @@ namespace truecryptbrute
             dlgKeyFile.ShowDialog();
             ConfigController.Configuration.KeyFiles = dlgKeyFile.KeyFiles;
         }
+
+
+
 
     }
 }

@@ -56,9 +56,6 @@
             this.txtWordListPath = new System.Windows.Forms.TextBox();
             this.BrowseWordlist = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.btnBrowseTrueCrypt = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtTrueCryptBinaryPath = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -179,9 +176,6 @@
             this.tabPage2.Controls.Add(this.btnSaveConfic);
             this.tabPage2.Controls.Add(this.groupBox2);
             this.tabPage2.Controls.Add(this.groupBox1);
-            this.tabPage2.Controls.Add(this.btnBrowseTrueCrypt);
-            this.tabPage2.Controls.Add(this.label1);
-            this.tabPage2.Controls.Add(this.txtTrueCryptBinaryPath);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPage2.Name = "tabPage2";
@@ -195,7 +189,7 @@
             this.groupBox3.Controls.Add(this.btnOpenKeyFileDialoge);
             this.groupBox3.Controls.Add(this.chkKeyfiles);
             this.groupBox3.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.groupBox3.Location = new System.Drawing.Point(597, 59);
+            this.groupBox3.Location = new System.Drawing.Point(575, 49);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -231,7 +225,7 @@
             // btnLoadJobConfic
             // 
             this.btnLoadJobConfic.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.btnLoadJobConfic.Location = new System.Drawing.Point(617, 181);
+            this.btnLoadJobConfic.Location = new System.Drawing.Point(595, 171);
             this.btnLoadJobConfic.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnLoadJobConfic.Name = "btnLoadJobConfic";
             this.btnLoadJobConfic.Size = new System.Drawing.Size(121, 22);
@@ -243,7 +237,7 @@
             // btnSaveConfic
             // 
             this.btnSaveConfic.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.btnSaveConfic.Location = new System.Drawing.Point(618, 217);
+            this.btnSaveConfic.Location = new System.Drawing.Point(596, 207);
             this.btnSaveConfic.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnSaveConfic.Name = "btnSaveConfic";
             this.btnSaveConfic.Size = new System.Drawing.Size(121, 22);
@@ -260,7 +254,7 @@
             this.groupBox2.Controls.Add(this.btnBrowseContainer);
             this.groupBox2.Controls.Add(this.chkIsSystemVol);
             this.groupBox2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.groupBox2.Location = new System.Drawing.Point(37, 59);
+            this.groupBox2.Location = new System.Drawing.Point(15, 49);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -316,9 +310,9 @@
             this.chkIsSystemVol.Location = new System.Drawing.Point(111, 58);
             this.chkIsSystemVol.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkIsSystemVol.Name = "chkIsSystemVol";
-            this.chkIsSystemVol.Size = new System.Drawing.Size(145, 17);
+            this.chkIsSystemVol.Size = new System.Drawing.Size(147, 17);
             this.chkIsSystemVol.TabIndex = 0;
-            this.chkIsSystemVol.Text = "Mount as System Volume";
+            this.chkIsSystemVol.Text = "Is System Volume Header";
             this.chkIsSystemVol.UseVisualStyleBackColor = true;
             // 
             // groupBox1
@@ -329,7 +323,7 @@
             this.groupBox1.Controls.Add(this.BrowseWordlist);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.groupBox1.Location = new System.Drawing.Point(37, 165);
+            this.groupBox1.Location = new System.Drawing.Point(15, 155);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -385,35 +379,6 @@
             this.label3.Size = new System.Drawing.Size(45, 13);
             this.label3.TabIndex = 9;
             this.label3.Text = "Wordlist";
-            // 
-            // btnBrowseTrueCrypt
-            // 
-            this.btnBrowseTrueCrypt.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.btnBrowseTrueCrypt.Location = new System.Drawing.Point(421, 15);
-            this.btnBrowseTrueCrypt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnBrowseTrueCrypt.Name = "btnBrowseTrueCrypt";
-            this.btnBrowseTrueCrypt.Size = new System.Drawing.Size(35, 22);
-            this.btnBrowseTrueCrypt.TabIndex = 3;
-            this.btnBrowseTrueCrypt.Text = "...";
-            this.btnBrowseTrueCrypt.UseVisualStyleBackColor = true;
-            this.btnBrowseTrueCrypt.Click += new System.EventHandler(this.btnBrowseTrueCrypt_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(45, 20);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(78, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Path TrueCrypt";
-            // 
-            // txtTrueCryptBinaryPath
-            // 
-            this.txtTrueCryptBinaryPath.Location = new System.Drawing.Point(149, 17);
-            this.txtTrueCryptBinaryPath.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtTrueCryptBinaryPath.Name = "txtTrueCryptBinaryPath";
-            this.txtTrueCryptBinaryPath.Size = new System.Drawing.Size(253, 20);
-            this.txtTrueCryptBinaryPath.TabIndex = 1;
             // 
             // tabPage3
             // 
@@ -528,7 +493,6 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -558,9 +522,6 @@
         private System.Windows.Forms.TextBox txtWordListPath;
         private System.Windows.Forms.Button BrowseWordlist;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button btnBrowseTrueCrypt;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtTrueCryptBinaryPath;
         private System.Windows.Forms.Button btnLoadJobConfic;
         private System.Windows.Forms.Button btnSaveConfic;
         private System.Windows.Forms.Label label4;

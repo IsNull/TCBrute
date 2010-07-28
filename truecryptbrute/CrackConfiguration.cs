@@ -10,12 +10,12 @@ namespace truecryptbrute
     [Serializable]
     public class CrackConfiguration
     {
-        public string TrueCryptBinaryPath = "";
         public string WordListPath = "";
         public int WordListOffset = 0;
         public string ContainerPath = "";
         public bool MountAsSystemVolume = false;
         public bool UseKeyFiles = false;
         public List<string> KeyFiles = new List<string>();
+        public int ThreadCount = 1;
     }
 }

@@ -26,6 +26,8 @@ namespace truecryptbrute
         }
 
         public void SaveCrackConfiguration(string DestinationPath){
+            if(File.Exists(DestinationPath))
+                File.Delete(DestinationPath);
             Stream FileStream = File.OpenWrite(DestinationPath);
             CrackConfigSerializer.Serialize(FileStream, mConfiguration);
             FileStream.Close();
@@ -64,10 +66,7 @@ namespace truecryptbrute
             ValidationResult = new List<string>();
             bool sucess = true;
 
-            if(!File.Exists(this.Configuration.TrueCryptBinaryPath)) {
-                ValidationResult.Add("ERROR: Can't find TrueCrypt Binary @ \"" + this.Configuration.TrueCryptBinaryPath + "\"");
-                sucess = false;
-            }
+
             if(!File.Exists(this.Configuration.WordListPath)) {
                 ValidationResult.Add("ERROR: Can't find WordList @ \"" + this.Configuration.WordListPath + "\"");
                 sucess = false;
