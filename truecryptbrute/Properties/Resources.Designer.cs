@@ -74,15 +74,6 @@ namespace truecryptbrute.Properties {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string str {
-            get {
-                return ResourceManager.GetString("str", resourceCulture);
-            }
-        }
-        
         internal static System.Drawing.Bitmap tc_brute_bkg {
             get {
                 object obj = ResourceManager.GetObject("tc_brute_bkg", resourceCulture);

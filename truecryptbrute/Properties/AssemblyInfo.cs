@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("truecryptbrute 2")]
+[assembly: AssemblyTitle("TCbrute 2")]
 [assembly: AssemblyDescription("TrueCrypt Header Bruteforcer - Please note that this is a pre Alpha and just for alpha testers")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("securityvision.ch")]
-[assembly: AssemblyProduct("truecryptbrute 2")]
+[assembly: AssemblyProduct("TCbrute 2")]
 [assembly: AssemblyCopyright("Copyright © IsNull @ securityvision.ch")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.0.0.1")]
+[assembly: AssemblyVersion("2.0.0.2")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
