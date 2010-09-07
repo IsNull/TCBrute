@@ -13,6 +13,7 @@ namespace truecryptbrute
         public frmAbout() {
             InitializeComponent();
             this.Text = String.Format("About {0}", AssemblyTitle);
+            this.Name = this.Text;
             this.labelProductName.Text = AssemblyProduct;
             this.labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
             this.labelCopyright.Text = AssemblyCopyright;
@@ -81,5 +82,6 @@ namespace truecryptbrute
             }
         }
         #endregion
+
     }
 }

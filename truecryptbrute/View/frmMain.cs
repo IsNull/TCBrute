@@ -18,6 +18,9 @@ namespace truecryptbrute
             abtoox.ShowDialog();
             InitializeComponent();
 
+            this.Text = abtoox.AssemblyTitle;
+            MainTitle.Text = abtoox.AssemblyTitle;
+
             #region Control Change Events
 
             this.txtTargetVolume.TextChanged +=new EventHandler(txtTargetVolume_TextChanged);

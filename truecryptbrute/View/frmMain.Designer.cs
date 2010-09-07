@@ -61,7 +61,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.cboThreads = new System.Windows.Forms.ComboBox();
-            this.label7 = new System.Windows.Forms.Label();
+            this.MainTitle = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -447,17 +447,17 @@
             this.cboThreads.TabIndex = 0;
             this.cboThreads.Text = "1";
             // 
-            // label7
+            // MainTitle
             // 
-            this.label7.AutoSize = true;
-            this.label7.BackColor = System.Drawing.Color.Transparent;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label7.Location = new System.Drawing.Point(27, 40);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(150, 24);
-            this.label7.TabIndex = 2;
-            this.label7.Text = "true.crypt.brute 2";
+            this.MainTitle.AutoSize = true;
+            this.MainTitle.BackColor = System.Drawing.Color.Transparent;
+            this.MainTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MainTitle.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.MainTitle.Location = new System.Drawing.Point(27, 40);
+            this.MainTitle.Name = "MainTitle";
+            this.MainTitle.Size = new System.Drawing.Size(108, 24);
+            this.MainTitle.TabIndex = 2;
+            this.MainTitle.Text = "[app Name]";
             // 
             // label8
             // 
@@ -481,13 +481,14 @@
             this.CancelButton = this.BrowseWordlist;
             this.ClientSize = new System.Drawing.Size(793, 509);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.label7);
+            this.Controls.Add(this.MainTitle);
             this.Controls.Add(this.tabControl1);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "frmMain";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "true.crypt.brute - by securityvision.ch";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -540,7 +541,7 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox cboThreads;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label MainTitle;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
     }
