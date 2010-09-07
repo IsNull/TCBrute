@@ -47,7 +47,6 @@ namespace truecrypt
 
     class Common
     {
-
         //void so far :D
     }
 }

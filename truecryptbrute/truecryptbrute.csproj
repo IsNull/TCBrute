@@ -9,9 +9,10 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>truecryptbrute</RootNamespace>
-    <AssemblyName>truecryptbrute</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <AssemblyName>tcbrute</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -71,6 +72,11 @@
     <Compile Include="Common.cs" />
     <Compile Include="ConfigurationController.cs" />
     <Compile Include="CrackConfiguration.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="truecrypt\Password.cs" />
     <Compile Include="Tcdefs.cs" />
     <Compile Include="truecrypt\TCErrorCodes.cs" />
@@ -110,6 +116,10 @@
     <Compile Include="truecrypt\VolumeHeader.cs" />
     <Compile Include="truecrypt\VolumeHeaderHelper.cs" />
     <Compile Include="wordlist\WordListProvider.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\frmABout.resx">
       <DependentUpon>frmABout.cs</DependentUpon>
     </EmbeddedResource>
@@ -122,16 +132,9 @@
     <EmbeddedResource Include="View\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    <None Include="app.config">
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -146,6 +149,7 @@
     <None Include="Skin\background.gif" />
     <None Include="Skin\tc.brute.bkg.jpg" />
     <None Include="Resources\gfx_bkg.bmp" />
+    <None Include="Skin\gfx_bkg.bmp" />
     <Content Include="SVLogo32.ico" />
   </ItemGroup>
   <ItemGroup>
