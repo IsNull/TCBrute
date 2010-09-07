@@ -26,7 +26,7 @@ namespace truecryptbrute.WordList
     /// <summary>Singleton
     /// 
     /// </summary>
-    public class WordListProvider
+    public sealed class WordListProvider
     {
         static readonly WordListProvider mInstance = new WordListProvider();
 
@@ -35,6 +35,7 @@ namespace truecryptbrute.WordList
         private StreamReader WordListReader;
         private int mLineReadCount = 0;
         private int mLineCount = 0;
+        private object Locker = new object();
 
         #region singleton
 
@@ -77,12 +78,14 @@ namespace truecryptbrute.WordList
         }
 
         public string NextPassword() {
-            var pass = WordListReader.ReadLine();
-            if(pass != null)
-                ++this.CurrentLine;
-            if(WordListProgressEvent != null)
-                WordListProgressEvent(this, new WordListEventArgs(mLineReadCount, mLineCount, pass));
-            return pass;
+            lock(Locker) {
+                var pass = WordListReader.ReadLine();
+                if(pass != null)
+                    ++this.CurrentLine;
+                if(WordListProgressEvent != null)
+                    WordListProgressEvent(this, new WordListEventArgs(mLineReadCount, mLineCount, pass));
+                return pass;
+            }
         }
     }
 }
