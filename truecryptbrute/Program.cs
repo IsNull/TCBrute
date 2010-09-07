@@ -16,8 +16,14 @@ namespace truecryptbrute
         [STAThread]
         static void Main()
         {
-            truecryptbruter TCB = new truecryptbruter();
-            TCB.ShowMainGUI();
+
+            if(Environment.OSVersion.Platform != PlatformID.Win32NT) {
+                MessageBox.Show("This Version uses native 32bit Win dll and wont work on your Operatingsystem. Sorry." + Environment.NewLine + "Application will shutdown...", "Operating System not supportet", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                Application.Exit();
+            } else {
+                truecryptbruter TCB = new truecryptbruter();
+                TCB.ShowMainGUI();
+            }
         }
     }
 }
