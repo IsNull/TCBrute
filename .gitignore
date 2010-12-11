@@ -30,3 +30,5 @@ _ReSharper*/
 *.ipch
 *.sdf
 *.opensdf
+tcbrute/*
+tcbrute.zip
