@@ -45,6 +45,7 @@
             this.btnLoadJobConfic = new System.Windows.Forms.Button();
             this.btnSaveConfic = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.chkHiddenVolume = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtTargetVolume = new System.Windows.Forms.TextBox();
             this.btnChoosePartition = new System.Windows.Forms.Button();
@@ -248,6 +249,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.chkHiddenVolume);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.txtTargetVolume);
             this.groupBox2.Controls.Add(this.btnChoosePartition);
@@ -262,6 +264,17 @@
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Target Volume";
+            // 
+            // chkHiddenVolume
+            // 
+            this.chkHiddenVolume.AutoSize = true;
+            this.chkHiddenVolume.Location = new System.Drawing.Point(264, 57);
+            this.chkHiddenVolume.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.chkHiddenVolume.Name = "chkHiddenVolume";
+            this.chkHiddenVolume.Size = new System.Drawing.Size(95, 17);
+            this.chkHiddenVolume.TabIndex = 8;
+            this.chkHiddenVolume.Text = "HiddenVolume";
+            this.chkHiddenVolume.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -545,6 +558,7 @@
         private System.Windows.Forms.Label MainTitle;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.CheckBox chkHiddenVolume;
     }
 }
 

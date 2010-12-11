@@ -14,21 +14,22 @@ namespace truecryptbrute
         private bool bDontUpdate = false;
         public frmMain()
         {
-            frmAbout abtoox = new frmAbout();
-            abtoox.ShowDialog();
+            var aboutBox = new frmAbout();
+            aboutBox.ShowDialog();
             InitializeComponent();
 
-            this.Text = abtoox.AssemblyTitle;
-            MainTitle.Text = abtoox.AssemblyTitle;
+            this.Text = aboutBox.AssemblyTitle;
+            MainTitle.Text = aboutBox.AssemblyTitle;
 
             #region Control Change Events
 
-            this.txtTargetVolume.TextChanged +=new EventHandler(txtTargetVolume_TextChanged);
-            this.txtWordListPath.TextChanged += new EventHandler(txtWordListPath_TextChanged);
-            this.txtWordListOffset.TextChanged += new EventHandler(txtWordListOffset_TextChanged);
-            this.chkIsSystemVol.CheckedChanged += new EventHandler(chkIsSystemVol_CheckedChanged);
+            this.txtTargetVolume.TextChanged += new EventHandler(Config_Changed);
+            this.txtWordListPath.TextChanged += new EventHandler(Config_Changed);
+            this.txtWordListOffset.TextChanged += new EventHandler(Config_Changed);
+            this.chkIsSystemVol.CheckedChanged += new EventHandler(Config_Changed);
+            this.chkHiddenVolume.CheckedChanged += new EventHandler(Config_Changed);
             this.chkKeyfiles.CheckedChanged += new EventHandler(chkKeyfiles_CheckedChanged);
-            this.cboThreads.TextChanged += new EventHandler(cboThreads_TextChanged);
+            this.cboThreads.TextChanged += new EventHandler(Config_Changed);
 
             #endregion
 
@@ -72,31 +73,19 @@ namespace truecryptbrute
 
         #region Events
 
-        private void txtTargetVolume_TextChanged(object sender, EventArgs e) {
+
+        private void Config_Changed(object sender, EventArgs e) {
             UpdateConfig();
         }
-        private void txtTrueCryptBinaryPath_TextChanged(object sender, EventArgs e) {
-            UpdateConfig();
-        }
-        private void txtWordListPath_TextChanged(object sender, EventArgs e) {
-            UpdateConfig();
-        }
-        private void txtWordListOffset_TextChanged(object sender, EventArgs e) {
-            UpdateConfig();
-        }
-        private void chkIsSystemVol_CheckedChanged(object sender, EventArgs e) {
-            UpdateConfig();
-        }
+
         private void chkKeyfiles_CheckedChanged(object sender, EventArgs e) {
-            UpdateConfig();
+            Config_Changed(sender, e);
+
             if(this.chkKeyfiles.Checked) {
                 this.btnOpenKeyFileDialoge.Enabled = true;
             } else {
                 this.btnOpenKeyFileDialoge.Enabled = false;
             }
-        }
-        private void cboThreads_TextChanged(object sender, EventArgs e) {
-            UpdateConfig();
         }
         
         
@@ -127,6 +116,7 @@ namespace truecryptbrute
                 var crkconfg = ConfigController.Configuration;
                 crkconfg.ContainerPath = this.txtTargetVolume.Text;
                 crkconfg.MountAsSystemVolume = this.chkIsSystemVol.Checked;
+                crkconfg.AttackHiddenVolume = this.chkHiddenVolume.Checked;
                 crkconfg.UseKeyFiles = this.chkKeyfiles.Checked;
                 crkconfg.WordListPath = this.txtWordListPath.Text;
                 int offset;
@@ -152,6 +142,7 @@ namespace truecryptbrute
                 bDontUpdate = true;
                 this.txtTargetVolume.Text = value.ContainerPath;
                 this.chkIsSystemVol.Checked = value.MountAsSystemVolume;
+                this.chkHiddenVolume.Checked = value.AttackHiddenVolume;
                 this.txtWordListPath.Text = value.WordListPath;
                 this.txtWordListOffset.Text = value.WordListOffset.ToString();
                 this.cboThreads.Text = value.ThreadCount.ToString();
@@ -188,6 +179,7 @@ namespace truecryptbrute
             dlgKeyFile.ShowDialog();
             ConfigController.Configuration.KeyFiles = dlgKeyFile.KeyFiles;
         }
+
 
 
 

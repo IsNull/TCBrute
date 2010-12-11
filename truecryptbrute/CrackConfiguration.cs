@@ -14,6 +14,7 @@ namespace truecryptbrute
         public int WordListOffset = 0;
         public string ContainerPath = "";
         public bool MountAsSystemVolume = false;
+        public bool AttackHiddenVolume = false;
         public bool UseKeyFiles = false;
         public List<string> KeyFiles = new List<string>();
         public int ThreadCount = 1;
