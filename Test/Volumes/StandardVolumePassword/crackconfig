@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<CrackConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <WordListPath>C:\Users\IsNull.executor\Documents\Visual Studio 2010\Projects\truecryptbrute\Test\Wordlists\wordlistsmall.txt</WordListPath>
+  <WordListOffset>0</WordListOffset>
+  <ContainerPath>C:\Users\IsNull.executor\Documents\Visual Studio 2010\Projects\truecryptbrute\Test\Volumes\StandardVolumePassword\standardVolume.tc</ContainerPath>
+  <MountAsSystemVolume>false</MountAsSystemVolume>
+  <UseKeyFiles>false</UseKeyFiles>
+  <KeyFiles />
+  <ThreadCount>2</ThreadCount>
+</CrackConfiguration>
