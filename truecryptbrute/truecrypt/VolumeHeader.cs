@@ -38,27 +38,35 @@ namespace truecryptbrute.TrueCrypt
         /// <returns></returns>
         public bool DecryptVolumeHeader(byte[] passwordStructure){
             TCErrorCode Status;
+            bool res = false;
 
-            var ret = TrueCryptInterOP.CheckVolumeHeaderPassword(false, headerStructPtr, passwordStructure);
-            
-            if(Enum.IsDefined(typeof(TCErrorCode), ret)){
-                Status = (TCErrorCode)ret;
-            }else{
-                throw new NotSupportedException();
+            try {
+                var ret = TrueCryptInterOP.CheckVolumeHeaderPassword(false, headerStructPtr, passwordStructure);
+                if(Enum.IsDefined(typeof(TCErrorCode), ret)) {
+                    Status = (TCErrorCode)ret;
+                } else {
+                    throw new NotSupportedException();
+                }
+
+                switch(Status) {
+
+                    case TCErrorCode.ERR_SUCCESS:
+                        res = true;
+                        break;
+
+                    case TCErrorCode.ERR_PASSWORD_WRONG:
+                        res = false;
+                        break;
+
+                    default:
+                        throw new TCException(Status);
+                }
+
+            } catch {
+                res = false;
             }
 
-            switch(Status) {
-
-                case TCErrorCode.ERR_SUCCESS:
-                    return true;
-
-                case TCErrorCode.ERR_PASSWORD_WRONG:
-                    return false;
-
-                default:
-                    throw new TCException(Status);
-            }
-
+            return res;
         }
 
     }

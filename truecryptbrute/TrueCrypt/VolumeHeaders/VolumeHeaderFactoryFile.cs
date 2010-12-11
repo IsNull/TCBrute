@@ -25,10 +25,12 @@ namespace truecryptbrute.TrueCrypt.VolumeHeaders
         /// <returns>VolumeHeader if successfull</returns>
         protected VolumeHeader ReadVolumeHeaderEncrypted(int headerOffset) {
             VolumeHeader header = null;
+
             using(var device = File.OpenRead(volumePath)) {
                 try {
                     var tmpbuffer = new byte[512];
-                    device.Read(tmpbuffer, headerOffset, 512);
+                    device.Seek(headerOffset, SeekOrigin.Begin);
+                    device.Read(tmpbuffer, 0, tmpbuffer.Length);
                     header = new VolumeHeader(tmpbuffer);
                 } catch(IOException) {
                     header = null;
