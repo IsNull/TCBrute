@@ -72,15 +72,24 @@
     <Compile Include="Common.cs" />
     <Compile Include="ConfigurationController.cs" />
     <Compile Include="CrackConfiguration.cs" />
+    <Compile Include="Crypto\CRC32.cs" />
+    <Compile Include="TrueCrypt\KeyFiles\KeyDataFile.cs" />
+    <Compile Include="TrueCrypt\KeyFiles\KeyDataToken.cs" />
+    <Compile Include="TrueCrypt\KeyFiles\KeyFileSettings.cs" />
+    <Compile Include="TrueCrypt\KeyFiles\KeyfilePool.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="truecrypt\Password.cs" />
+    <Compile Include="TrueCrypt\KeyFiles\IKeyData.cs" />
+    <Compile Include="TrueCrypt\Password.cs" />
     <Compile Include="Tcdefs.cs" />
-    <Compile Include="truecrypt\TCErrorCodes.cs" />
-    <Compile Include="truecrypt\TrueCryptInterOP.cs" />
+    <Compile Include="TrueCrypt\TCErrorCodes.cs" />
+    <Compile Include="TrueCrypt\TrueCryptInterOP.cs" />
+    <Compile Include="TrueCrypt\VolumeHeaders\VolumeHeaderFactory.cs" />
+    <Compile Include="TrueCrypt\VolumeHeaders\VolumeHeaderFactoryFile.cs" />
+    <Compile Include="TrueCrypt\VolumeHeaders\VolumeHeaderFactoryFileHidden.cs" />
     <Compile Include="View\frmABout.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -107,15 +116,13 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="truecryptbrute.cs" />
-    <Compile Include="truecrypt\TrueCryptInstance.cs" />
-    <Compile Include="truecrypt\TrueCryptArgument.cs" />
+    <Compile Include="TrueCryptBruter.cs" />
     <Compile Include="View\frmMain.ViewEvents.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="truecrypt\VolumeHeader.cs" />
-    <Compile Include="truecrypt\VolumeHeaderHelper.cs" />
-    <Compile Include="wordlist\WordListProvider.cs" />
+    <Compile Include="TrueCrypt\VolumeHeader.cs" />
+    <Compile Include="TrueCrypt\VolumeHeaderHelper.cs" />
+    <Compile Include="Wordlist\WordListProvider.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -135,6 +142,8 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="TrueCrypt\KeyFiles\Keyfile.Design.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -148,7 +157,6 @@
   <ItemGroup>
     <None Include="Skin\background.gif" />
     <None Include="Skin\tc.brute.bkg.jpg" />
-    <None Include="Resources\gfx_bkg.bmp" />
     <None Include="Skin\gfx_bkg.bmp" />
     <Content Include="SVLogo32.ico" />
   </ItemGroup>

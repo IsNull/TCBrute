@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="truecryptbrute.TrueCrypt.Password">
+    <Position X="7.25" Y="0.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="truecryptbrute.TrueCrypt.Password.EncodingType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>TrueCrypt\Password.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAIAAAAAgAAAAQIAAAAAAAAEAgECAwAgAAABA=</HashCode>
+      <FileName>TrueCrypt\Password.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="KeyfilePool" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="truecryptbrute.TrueCrypt.KeyFiles.KeyDataFile" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAAAAAEAAAABAAAAAAAA=</HashCode>
+      <FileName>TrueCrypt\KeyFiles\KeyDataFile.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.169" />
+  </Class>
+  <Class Name="truecryptbrute.TrueCrypt.KeyFiles.KeyDataToken" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TrueCrypt\KeyFiles\KeyDataToken.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="truecryptbrute.TrueCrypt.KeyFiles.KeyfilePool">
+    <Position X="4.5" Y="1.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAABAAAAAAAACgBCA=</HashCode>
+      <FileName>TrueCrypt\KeyFiles\KeyfilePool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="truecryptbrute.TrueCrypt.KeyFiles.KeyFileSettings">
+    <Position X="0.5" Y="4.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>TrueCrypt\KeyFiles\KeyFileSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="truecryptbrute.TrueCrypt.KeyFiles.IKeyData">
+    <Position X="0.5" Y="0.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TrueCrypt\KeyFiles\IKeyData.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

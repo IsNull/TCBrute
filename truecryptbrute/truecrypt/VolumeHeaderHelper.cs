@@ -5,24 +5,24 @@ using truecrypt;
 using System.IO;
 
 
-namespace truecryptbrute.truecrypt
+namespace truecryptbrute.TrueCrypt
 {
  
     public static class VolumeHeaderHelper
     {
 
-        /// <summary>just for debuging purposes :)
+        /// <summary>
         /// 
         /// </summary>
-        /// <param name="volumepath"></param>
+        /// <param name="volumePath"></param>
         /// <returns></returns>
-        public static VolumeHeader ReadVolumeHeaderFromFile(string volumepath) {
+        public static VolumeHeader ReadVolumeHeaderFromFile(string volumePath) {
             VolumeHeader Header = null;
             Stream device = null;
             try{
-                device = File.OpenRead(volumepath);
+                device = File.OpenRead(volumePath);
                 Header = ReadVolumeHeaderEncrypted(device, VolumeType.TC_VOLUME_TYPE_NORMAL);
-            }catch(IOException e){
+            }catch(IOException){
                 throw;
             } finally {
                 if(device != null)
@@ -36,16 +36,16 @@ namespace truecryptbrute.truecrypt
         /// <summary>Reads out the TrueCrypt Volume Header (512 Bytes)
         /// 
         /// </summary>
-        /// <param name="Device">Stream to read from</param>
-        /// <param name="Type">Volume Type</param>
+        /// <param name="device">Stream to read from</param>
+        /// <param name="type">Volume Type</param>
         /// <param name="buffer">out Volume Header</param>
-        public static VolumeHeader ReadVolumeHeaderEncrypted(Stream Device, VolumeType Type) {
+        public static VolumeHeader ReadVolumeHeaderEncrypted(Stream device, VolumeType type) {
 
             var tmpbuffer = new byte[512];
             int hostSize = 0;
             int headerOffset;
 
-            switch(Type) {
+            switch(type) {
                 case VolumeType.TC_VOLUME_TYPE_NORMAL:
                     headerOffset = 0;
                     break;
@@ -61,7 +61,7 @@ namespace truecryptbrute.truecrypt
                 default:
                     throw new NotSupportedException();
             }
-            Device.Read(tmpbuffer, headerOffset, 512);
+            device.Read(tmpbuffer, headerOffset, 512);
             return new VolumeHeader(tmpbuffer);
         }
 

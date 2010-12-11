@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
 
-namespace truecryptbrute.truecrypt
+namespace truecryptbrute.TrueCrypt
 {
     
     [StructLayout(LayoutKind.Sequential, Pack = 1, Size = 512)]

@@ -48,7 +48,7 @@
             // 
             // colKeyfilePath
             // 
-            this.colKeyfilePath.Text = "Keyfile";
+            this.colKeyfilePath.Text = "KeyDataFile";
             this.colKeyfilePath.Width = 399;
             // 
             // label1
@@ -104,7 +104,7 @@
             this.Name = "frmKeyfiles";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Keyfile Configuration";
+            this.Text = "KeyDataFile Configuration";
             this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

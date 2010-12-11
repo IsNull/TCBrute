@@ -5,28 +5,25 @@ using System.Text;
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace truecryptbrute.truecrypt
+namespace truecryptbrute.TrueCrypt
 {
-    
 
     public class VolumeHeader
     {
         public const int TC_VOLUMEHEADER_EFFECTIVE_SIZE = 512;
 
-        private TCHeaderData TCHeaderDataStruct = new TCHeaderData();
-        private IntPtr HeaderStructPointer;
+        private TCHeaderData headerData = new TCHeaderData();
+        private IntPtr headerStructPtr;
         
-
-
         #region Constructor
 
         public VolumeHeader(byte[] buffer) {
             if(buffer.Length == TC_VOLUMEHEADER_EFFECTIVE_SIZE) {
-                TCHeaderDataStruct.Data = new byte[TC_VOLUMEHEADER_EFFECTIVE_SIZE];
-                buffer.CopyTo(TCHeaderDataStruct.Data, 0);
+                headerData.Data = new byte[TC_VOLUMEHEADER_EFFECTIVE_SIZE];
+                buffer.CopyTo(headerData.Data, 0);
 
-                HeaderStructPointer = Marshal.AllocHGlobal(TC_VOLUMEHEADER_EFFECTIVE_SIZE);
-                Marshal.StructureToPtr(TCHeaderDataStruct, HeaderStructPointer, true);          
+                headerStructPtr = Marshal.AllocHGlobal(TC_VOLUMEHEADER_EFFECTIVE_SIZE);
+                Marshal.StructureToPtr(headerData, headerStructPtr, true);          
             } else {
                 throw new FieldAccessException("Volumeheader buffer has invalid length!");
             }
@@ -35,14 +32,14 @@ namespace truecryptbrute.truecrypt
         #endregion
 
         /// <summary>
-        /// 
+        /// Decrypts this header with the given Key Pool
         /// </summary>
-        /// <param name="PasswordStructure">With Keyfiles applied to it!</param>
+        /// <param name="passwordStructure">With Keyfiles applied to it!</param>
         /// <returns></returns>
-        public bool DecryptVolumeHeader(byte[] PasswordStructure){
+        public bool DecryptVolumeHeader(byte[] passwordStructure){
             TCErrorCode Status;
 
-            var ret = TrueCryptInterOP.CheckVolumeHeaderPassword(false, HeaderStructPointer, PasswordStructure);
+            var ret = TrueCryptInterOP.CheckVolumeHeaderPassword(false, headerStructPtr, passwordStructure);
             
             if(Enum.IsDefined(typeof(TCErrorCode), ret)){
                 Status = (TCErrorCode)ret;

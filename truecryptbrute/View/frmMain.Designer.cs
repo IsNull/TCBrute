@@ -307,6 +307,7 @@
             // chkIsSystemVol
             // 
             this.chkIsSystemVol.AutoSize = true;
+            this.chkIsSystemVol.Enabled = false;
             this.chkIsSystemVol.Location = new System.Drawing.Point(111, 58);
             this.chkIsSystemVol.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkIsSystemVol.Name = "chkIsSystemVol";

@@ -78,7 +78,7 @@ namespace truecryptbrute
 
             foreach(var keyfilepath in this.Configuration.KeyFiles) {
                 if(!File.Exists(keyfilepath)){
-                    ValidationResult.Add("ERROR: Can't find Keyfile @ \"" + keyfilepath + "\"");
+                    ValidationResult.Add("ERROR: Can't find KeyDataFile @ \"" + keyfilepath + "\"");
                     sucess = false;
                 }
             }
