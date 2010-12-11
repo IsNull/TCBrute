@@ -154,8 +154,8 @@ int __declspec(dllexport) __stdcall CheckVolumeHeaderPassword (BOOL bBoot, char 
 	}
 		
 
-	//VirtualLock (&keyInfo, sizeof (keyInfo));
-	//VirtualLock (&dk, sizeof (dk));
+	VirtualLock (&keyInfo, sizeof (keyInfo));
+	VirtualLock (&dk, sizeof (dk));
 
 	crypto_loadkey (&keyInfo, password->Text, (int) password->Length);
 
@@ -346,8 +346,8 @@ ret:
 	burn (&keyInfo, sizeof (keyInfo));
 	burn (dk, sizeof(dk));
 
-	//VirtualUnlock (&keyInfo, sizeof (keyInfo));
-	//VirtualUnlock (&dk, sizeof (dk));
+	VirtualUnlock (&keyInfo, sizeof (keyInfo));
+	VirtualUnlock (&dk, sizeof (dk));
 
 	if (encryptionThreadCount > 1)
 	{
