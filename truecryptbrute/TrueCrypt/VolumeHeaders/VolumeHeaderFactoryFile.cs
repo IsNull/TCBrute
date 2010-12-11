@@ -15,7 +15,7 @@ namespace truecryptbrute.TrueCrypt.VolumeHeaders
         }
 
         public override VolumeHeader ReadEncryptedVolumeHeader() {
-            return ReadVolumeHeaderEncrypted(0);
+            return ReadVolumeHeaderEncrypted(TrueCryptAPI.TC_VOLUME_HEADER_OFFSET);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace truecryptbrute.TrueCrypt.VolumeHeaders
 
             using(var device = File.OpenRead(volumePath)) {
                 try {
-                    var tmpbuffer = new byte[512];
+                    var tmpbuffer = new byte[TrueCryptAPI.TC_VOLUME_HEADER_EFFECTIVE_SIZE];
                     device.Seek(headerOffset, SeekOrigin.Begin);
                     device.Read(tmpbuffer, 0, tmpbuffer.Length);
                     header = new VolumeHeader(tmpbuffer);

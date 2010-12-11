@@ -10,19 +10,17 @@ namespace truecryptbrute.TrueCrypt
 
     public class VolumeHeader
     {
-        public const int TC_VOLUMEHEADER_EFFECTIVE_SIZE = 512;
-
         private TCHeaderData headerData = new TCHeaderData();
         private IntPtr headerStructPtr;
         
         #region Constructor
 
         public VolumeHeader(byte[] buffer) {
-            if(buffer.Length == TC_VOLUMEHEADER_EFFECTIVE_SIZE) {
-                headerData.Data = new byte[TC_VOLUMEHEADER_EFFECTIVE_SIZE];
+            if(buffer.Length == TrueCryptAPI.TC_VOLUME_HEADER_EFFECTIVE_SIZE) {
+                headerData.Data = new byte[TrueCryptAPI.TC_VOLUME_HEADER_EFFECTIVE_SIZE];
                 buffer.CopyTo(headerData.Data, 0);
 
-                headerStructPtr = Marshal.AllocHGlobal(TC_VOLUMEHEADER_EFFECTIVE_SIZE);
+                headerStructPtr = Marshal.AllocHGlobal(TrueCryptAPI.TC_VOLUME_HEADER_EFFECTIVE_SIZE);
                 Marshal.StructureToPtr(headerData, headerStructPtr, true);          
             } else {
                 throw new FieldAccessException("Volumeheader buffer has invalid length!");

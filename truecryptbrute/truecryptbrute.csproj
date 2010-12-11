@@ -86,6 +86,7 @@
     <Compile Include="TrueCrypt\Password.cs" />
     <Compile Include="Tcdefs.cs" />
     <Compile Include="TrueCrypt\TCErrorCodes.cs" />
+    <Compile Include="TrueCrypt\TrueCryptAPI.cs" />
     <Compile Include="TrueCrypt\TrueCryptInterOP.cs" />
     <Compile Include="TrueCrypt\VolumeHeaders\VolumeHeaderFactory.cs" />
     <Compile Include="TrueCrypt\VolumeHeaders\VolumeHeaderFactoryFile.cs" />

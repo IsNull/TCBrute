@@ -11,7 +11,7 @@ namespace truecryptbrute.TrueCrypt.VolumeHeaders
             : base(uvolumePath) { }
 
         public override VolumeHeader ReadEncryptedVolumeHeader() {
-            return ReadVolumeHeaderEncrypted(64 * 1024);
+            return ReadVolumeHeaderEncrypted(TrueCryptAPI.TC_HIDDEN_VOLUME_HEADER_OFFSET);
         }
     }
 }
