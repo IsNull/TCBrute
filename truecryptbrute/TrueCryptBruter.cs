@@ -63,8 +63,9 @@ namespace truecryptbrute
             StopAllCrackThreads();
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
-            StopAllCrackThreads();
-            Application.Exit();
+            //StopAllCrackThreads();
+            //Application.Exit();
+            Environment.Exit(0);
         }
 
 
@@ -180,7 +181,8 @@ namespace truecryptbrute
         private void StopAllCrackThreads() {
 
             bStopAllCrackThreads = true;
-            performanceWatch.Stop();
+            if(performanceWatch != null)
+                performanceWatch.Stop();
             mainForm.LogAppend("Stoping crack threads... ");
             mainForm.LogAppend("Elapsed Time: " + performanceWatch.ElapsedMilliseconds);
             
