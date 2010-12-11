@@ -8,6 +8,7 @@ using System.Threading;
 using System.IO;
 using System.Diagnostics;
 using truecryptbrute.TrueCrypt.KeyFiles;
+using truecryptbrute.TrueCrypt.VolumeHeaders;
 
 namespace truecryptbrute
 {
@@ -62,20 +63,21 @@ namespace truecryptbrute
             StopAllCrackThreads();
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
+            StopAllCrackThreads();
             Application.Exit();
         }
 
 
 
         public bool PrepareCrackOperation() {
-            List<string> Descr;
+            List<string> descr;
 
             mainForm.LogClear();
            
             mainForm.LogAppend("Prepare new crack Operation...");
             config.Configuration = mainForm.CrackConfig;
-            if(!config.ValidateConfiguration(out Descr)) {
-                mainForm.LogAppend(Descr);
+            if(!config.ValidateConfiguration(out descr)) {
+                mainForm.LogAppend(descr);
                 mainForm.LogAppend("Resolve the above errors and try again. Operation aborted.");
                 mainForm.SetButtonStart(true);
                 return false;
@@ -86,6 +88,14 @@ namespace truecryptbrute
             WordListProvider.Instance.WordListProgressEvent += new WordListProgressEventHandler(Instance_WordListProgressEvent);
             wordListLineCnt = WordListProvider.Instance.LineCount;
             mainForm.LogAppend("Wordlist anaysis: " + WordListProvider.Instance.LineCount + " Passwords!");
+
+            // chose the volume extraction mode
+            VolumeHeaderFactory volumeHeaderExtractor;
+            if(!config.Configuration.AttackHiddenVolume)
+                volumeHeaderExtractor = new VolumeHeaderFactoryFile(config.Configuration.ContainerPath);
+            else
+                volumeHeaderExtractor = new VolumeHeaderFactoryFileHidden(config.Configuration.ContainerPath);
+            
 
             // Setup Keydata Pool
             if(config.Configuration.UseKeyFiles) {
@@ -98,12 +108,13 @@ namespace truecryptbrute
             }
 
             try {
-                header = VolumeHeaderHelper.ReadVolumeHeaderFromFile(config.Configuration.ContainerPath);
+                header = volumeHeaderExtractor.ReadEncryptedVolumeHeader();
             } catch(IOException e) {
                 MessageBox.Show("Can't read Volume Header: " + e.Message);
                 mainForm.LogAppend("Flow interrupted!");
                 return false;
             }
+
             return true;
         }
 
