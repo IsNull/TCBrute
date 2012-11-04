@@ -11,7 +11,7 @@ namespace truecryptbrute.TrueCrypt
         #region Private Data
 
         const int MIN_PASSWORD = 1;		// Minimum possible password length
-        const int MAX_PASSWORD = 64;	// Minimum possible password length
+        const int MAX_PASSWORD = 64;	// Maximum possible password length
         private string password = "";
         private byte[] passwordBuffer = new byte[MAX_PASSWORD + 1]; // +1 !?
         private int usedBufLen = 0;

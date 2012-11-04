@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using truecryptbrute.Wordlist;
 
 namespace truecryptbrute
 {
@@ -60,10 +61,11 @@ namespace truecryptbrute
 
         #region Progress
 
-        public void SetProgress(WordList.WordListEventArgs e){
+        public void SetProgress(PasswordProgressEventArgs e)
+        {
 
             if(this.InvokeRequired) {
-                BeginInvoke(new GParameterDelegate<WordList.WordListEventArgs>(SetProgress), new object[] { e });
+                BeginInvoke(new GParameterDelegate<PasswordProgressEventArgs>(SetProgress), new object[] { e });
                 return;
             } else {
                 float full = e.WordListLineCount;

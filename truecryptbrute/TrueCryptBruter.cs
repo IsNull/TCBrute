@@ -9,6 +9,7 @@ using System.IO;
 using System.Diagnostics;
 using truecryptbrute.TrueCrypt.KeyFiles;
 using truecryptbrute.TrueCrypt.VolumeHeaders;
+using truecryptbrute.Wordlist;
 
 namespace truecryptbrute
 {
@@ -85,10 +86,10 @@ namespace truecryptbrute
             }
             mainForm.LogAppend("Configuration seems valid.");
             mainForm.LogAppend("Analyzing Wordlist...");
-            WordListProvider.Instance.LoadWordList(config.Configuration.WordListPath);
-            WordListProvider.Instance.WordListProgressEvent += new WordListProgressEventHandler(Instance_WordListProgressEvent);
-            wordListLineCnt = WordListProvider.Instance.LineCount;
-            mainForm.LogAppend("Wordlist anaysis: " + WordListProvider.Instance.LineCount + " Passwords!");
+            WordListPasswordProvider.Instance.LoadWordList(config.Configuration.WordListPath);
+            WordListPasswordProvider.Instance.PasswordProgressEvent += Instance_WordListProgressEvent;
+            wordListLineCnt = WordListPasswordProvider.Instance.PasswordCount;
+            mainForm.LogAppend("Wordlist anaysis: " + WordListPasswordProvider.Instance.PasswordCount + " Passwords!");
 
             // chose the volume extraction mode
             VolumeHeaderFactory volumeHeaderExtractor;
@@ -155,7 +156,7 @@ namespace truecryptbrute
             string thispass;
             Password pass;
 
-            while((thispass = WordListProvider.Instance.NextPassword()) != null && !bStopAllCrackThreads) {
+            while((thispass = WordListPasswordProvider.Instance.NextPassword()) != null && !bStopAllCrackThreads) {
 
                 pass = new Password(thispass);
 
@@ -221,7 +222,8 @@ namespace truecryptbrute
         }
 
 
-        private void Instance_WordListProgressEvent(object sender, WordListEventArgs e) {
+        private void Instance_WordListProgressEvent(object sender, PasswordProgressEventArgs e)
+        {
             mainForm.SetProgress(e);
         }
 
