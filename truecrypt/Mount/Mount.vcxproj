@@ -14,6 +14,7 @@
     <ProjectGuid>{E4C40F94-E7F9-4981-86E4-186B46F993F3}</ProjectGuid>
     <RootNamespace>Mount</RootNamespace>
     <Keyword>Win32Proj</Keyword>
+    <ProjectName>TrueCrypt</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -97,11 +98,8 @@
       <AdditionalManifestFiles>Mount.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
     </Manifest>
     <PostBuildEvent>
-	<!--
-      <Command>md "..\Debug\Setup Files" 2&gt;NUL:
-		copy Debug\TrueCrypt.dll "..\Debug\Setup Files" &gt;NUL:
-		</Command>
-	-->
+		<!-- Copy the dll into the TCBrute Dir -->
+		<Command>copy Debug\TrueCrypt.dll "..\..\truecryptbrute\bin\Debug\TrueCrypt.dll"</Command>	
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -144,9 +142,8 @@
       <AdditionalManifestFiles>Mount.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
     </Manifest>
     <PostBuildEvent>
-	<!--
-      <Command>copy Release\TrueCrypt.dll "..\Release\Setup Files"</Command>
-	-->
+		<!-- Copy the dll into the TCBrute Dir -->
+		<Command>copy Release\TrueCrypt.dll "..\..\truecryptbrute\bin\Release\TrueCrypt.dll"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
