@@ -17,8 +17,9 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -96,9 +97,11 @@
       <AdditionalManifestFiles>Mount.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
     </Manifest>
     <PostBuildEvent>
+	<!--
       <Command>md "..\Debug\Setup Files" 2&gt;NUL:
-copy Debug\TrueCrypt.dll "..\Debug\Setup Files" &gt;NUL:
-</Command>
+		copy Debug\TrueCrypt.dll "..\Debug\Setup Files" &gt;NUL:
+		</Command>
+	-->
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -126,7 +129,7 @@ copy Debug\TrueCrypt.dll "..\Debug\Setup Files" &gt;NUL:
     </ClCompile>
     <Link>
       <AdditionalDependencies>comctl32.lib;setupapi.lib;version.lib;..\Crypto\Release\crypto.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)TrueCrypt.exe</OutputFile>
+      <OutputFile>$(OutDir)TrueCrypt.dll</OutputFile>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <GenerateMapFile>true</GenerateMapFile>
@@ -141,7 +144,9 @@ copy Debug\TrueCrypt.dll "..\Debug\Setup Files" &gt;NUL:
       <AdditionalManifestFiles>Mount.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
     </Manifest>
     <PostBuildEvent>
-      <Command>copy Release\TrueCrypt.exe "..\Release\Setup Files"</Command>
+	<!--
+      <Command>copy Release\TrueCrypt.dll "..\Release\Setup Files"</Command>
+	-->
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

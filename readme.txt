@@ -36,7 +36,7 @@ You can get the Source from https://github.com/IsNull/TCBrute
 #Build Requirments:
 
 Visual Studio 2010 Professional/ Mono Develop 
-NASM Compiler (-> nasm.exe must be accessible -> put it in your Windows directory) (aes has a asm )
+NASM Compiler (-> nasm.exe must be accessible -> put it in your Windows directory/ Sys32/SysWow32)
 
 
 

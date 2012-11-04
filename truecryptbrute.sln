@@ -1,7 +1,11 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "truecryptbrute", "truecryptbrute\truecryptbrute.csproj", "{1F38CC4B-92AF-4FEB-9E27-1FE97F4C0191}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E4C40F94-E7F9-4981-86E4-186B46F993F3} = {E4C40F94-E7F9-4981-86E4-186B46F993F3}
+		{993245CF-6B70-47EE-91BB-39F8FC6DC0E7} = {993245CF-6B70-47EE-91BB-39F8FC6DC0E7}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Crypto", "truecrypt\Crypto\Crypto.vcxproj", "{993245CF-6B70-47EE-91BB-39F8FC6DC0E7}"
 EndProject
