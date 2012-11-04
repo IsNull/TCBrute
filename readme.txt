@@ -1,17 +1,17 @@
 +-------------------------------+
-|      truecryptbrute 2         |
+|           TCBrute 2           |
 +-------------------------------+
 | written by IsNull             |
 |                               |
-| v 2.01 pre ALpha              |
+| v 3.01 pre ALpha              |
 |                               |
 +-------------------------------+
 
 
 #License:
 
-    truecryptbrute 2 - TrueCrypt VolumeHeader Bruteforcer	
-    Copyright (C) 2010  IsNull @ securityvision.ch
+    TCBrute 2 - TrueCrypt VolumeHeader Bruteforcer	
+    Copyright (C) 2010 -2012  IsNull @ securityvision.ch
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -35,25 +35,17 @@ You can get the Source from https://github.com/IsNull/TCBrute
 
 #Build Requirments:
 
-Visual Studio 2010 Professional/ Mono Develop 
-NASM Compiler (-> nasm.exe must be accessible -> put it in your Windows directory/ Sys32/SysWow32)
+Visual Studio 2010 Professional or above/  Mono Develop 
+NASM Compiler (-> nasm.exe must be accessible in the CMD -> put it in your Windows directory/ System32/SysWow32)
 
 
 
 #How to build:
 
-First you have to build the TrueCrypt.dll
-
-1. Build the Crypto Project.
-2.1 Build the Mount Project (note that this has significantly changed from the original TrueCrypt Source)
-This will result into the Truecrypt.dll.
-
-2.2 
-The _stdcall conv falg forces the compiler to add a @[param byte number] suffix to each exported function, and visual studio didn't like @ into the functuion name o.0
-For now, I decided to simply patch the builded dll. I changed the exported function name (remove the _ prefix and the _@[n] suffix).
+First you should build the TrueCrypt.dll, it is now configured as depency of TCBrute. Just Run in VS, it will build everything for you.
 
 
-truecryptbrute can build without the truecrypt.dll, but for running, this dll is needed into the same directory as the truecryptbrute Exe resides.
+TCBrute (the C# part) can build without the truecrypt.dll, but for running, this dll is needed into the same directory as the truecryptbrute Exe resides.
 
 
 
