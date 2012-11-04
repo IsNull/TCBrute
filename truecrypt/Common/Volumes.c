@@ -100,8 +100,8 @@ BOOL ReadVolumeHeaderRecoveryMode = FALSE;
 
 ///
 ///	Note: if there are Keyfiles, these must be applied already to the password!
-///
-int __declspec(dllexport) __stdcall CheckVolumeHeaderPassword (BOOL bBoot, char *encryptedHeader, Password *password)
+/// int __declspec(dllexport)  __stdcall  CheckVolumeHeaderPassword (BOOL bBoot, char *encryptedHeader, Password *password) 
+int __declspec(dllexport)  __cdecl  CheckVolumeHeaderPassword (BOOL bBoot, char *encryptedHeader, Password *password)
 {
 	char header[TC_VOLUME_HEADER_EFFECTIVE_SIZE];
 	KEY_INFO keyInfo;

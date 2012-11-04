@@ -126,7 +126,10 @@ extern BOOL ReadVolumeHeaderRecoveryMode;
 uint16 GetHeaderField16 (byte *header, int offset);
 uint32 GetHeaderField32 (byte *header, int offset);
 UINT64_STRUCT GetHeaderField64 (byte *header, int offset);
-int __declspec(dllexport) __stdcall CheckVolumeHeaderPassword (BOOL bBoot, char *encryptedHeader, Password *password);
+
+
+int __declspec(dllexport) __cdecl CheckVolumeHeaderPassword (BOOL bBoot, char *encryptedHeader, Password *password);
+//int __declspec(dllexport) __stdcall CheckVolumeHeaderPassword (BOOL bBoot, char *encryptedHeader, Password *password);
 
 
 #endif // !TC_HEADER_Volume_VolumeHeader

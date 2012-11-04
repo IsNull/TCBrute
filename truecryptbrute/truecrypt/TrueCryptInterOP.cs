@@ -17,7 +17,7 @@ namespace truecryptbrute.TrueCrypt
 
     public static class TrueCryptInterOP
     {       
-        [DllImport("truecrypt.dll",CallingConvention=CallingConvention.StdCall,ExactSpelling=true)]
-        public static extern int CheckVolumeHeaderPassword([MarshalAs(UnmanagedType.Bool)]bool bBoot, IntPtr pEncryptedVolumeHeader, [MarshalAs(UnmanagedType.LPArray)]byte[] PasswordStructure);
+        [DllImport("truecrypt.dll",CallingConvention=CallingConvention.Cdecl)]
+        public static extern int CheckVolumeHeaderPassword([MarshalAs(UnmanagedType.Bool)]bool bBoot, IntPtr pEncryptedVolumeHeader, [MarshalAs(UnmanagedType.LPArray)]byte[] passwordStructure);
     }
 }

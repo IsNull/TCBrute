@@ -40,7 +40,7 @@ namespace truecrypt
         public bool ProtectHiddenVolume;
         public bool PreserveTimestamp;
         public bool PartitionInInactiveSysEncScope;	/* If TRUE, we are to attempt to mount a partition located on an encrypted system drive without pre-boot authentication. */
-        string ProtectedHidVolPassword;	/* Password of hidden volume to protect against overwriting */
+        public string ProtectedHidVolPassword;	/* Password of hidden volume to protect against overwriting */
         public bool UseBackupHeader;
         public bool RecoveryMode;
     }
