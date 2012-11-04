@@ -1,25 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
-namespace truecryptbrute
+namespace truecryptbrute.View
 {
-    public partial class frmMain : Form
+    public partial class FrmMain : Form
     {
-        private bool bDontUpdate = false;
-        public frmMain()
+        private bool _bDontUpdate = false;
+        public FrmMain()
         {
-            var aboutBox = new frmAbout();
+            var aboutBox = new FrmAbout();
             aboutBox.ShowDialog();
             InitializeComponent();
 
             this.Text = aboutBox.AssemblyTitle;
             MainTitle.Text = aboutBox.AssemblyTitle;
+
+            
 
             #region Control Change Events
 
@@ -112,7 +109,7 @@ namespace truecryptbrute
 
         private void UpdateConfig() {
             int threads; 
-            if(!bDontUpdate) {
+            if(!_bDontUpdate) {
                 var crkconfg = ConfigController.Configuration;
                 crkconfg.ContainerPath = this.txtTargetVolume.Text;
                 crkconfg.MountAsSystemVolume = this.chkIsSystemVol.Checked;
@@ -139,14 +136,14 @@ namespace truecryptbrute
 
         private CrackConfiguration Settings {
             set {
-                bDontUpdate = true;
+                _bDontUpdate = true;
                 this.txtTargetVolume.Text = value.ContainerPath;
                 this.chkIsSystemVol.Checked = value.MountAsSystemVolume;
                 this.chkHiddenVolume.Checked = value.AttackHiddenVolume;
                 this.txtWordListPath.Text = value.WordListPath;
                 this.txtWordListOffset.Text = value.WordListOffset.ToString();
                 this.cboThreads.Text = value.ThreadCount.ToString();
-                bDontUpdate = false;
+                _bDontUpdate = false;
             }
 
         }

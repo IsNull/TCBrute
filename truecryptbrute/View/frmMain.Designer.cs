@@ -1,6 +1,6 @@
-﻿namespace truecryptbrute
+﻿namespace truecryptbrute.View
 {
-    partial class frmMain
+    partial class FrmMain
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.lblProgress = new System.Windows.Forms.Label();
@@ -425,7 +425,7 @@
             this.label9.Size = new System.Drawing.Size(461, 13);
             this.label9.TabIndex = 2;
             this.label9.Text = "Note: This parameter was automatic set to fit your system. Change only if you kno" +
-                "w what you do.";
+    "w what you do.";
             // 
             // label6
             // 
@@ -483,9 +483,9 @@
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(185, 15);
             this.label8.TabIndex = 3;
-            this.label8.Text = "by IsNull - securityvision.ch 2010 ";
+            this.label8.Text = "by IsNull - securityvision.ch 2012 ";
             // 
-            // frmMain
+            // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -501,9 +501,9 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "frmMain";
+            this.Name = "FrmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "true.crypt.brute - by securityvision.ch";
+            this.Text = "[app Name]";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();

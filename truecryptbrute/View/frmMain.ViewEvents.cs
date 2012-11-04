@@ -1,20 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using truecryptbrute.Wordlist;
 
-namespace truecryptbrute
+namespace truecryptbrute.View
 {
     public delegate void SimpleEventHandler(object sender, EventArgs e);
     public delegate void GParameterDelegate<T>(T value);
     public delegate void SimpleDelegate();
 
-    public partial class frmMain : Form
+    public partial class FrmMain : Form
     {
         public event SimpleEventHandler StartCrackJob;
         public event SimpleEventHandler PauseCrackJob;

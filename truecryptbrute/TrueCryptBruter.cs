@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using truecryptbrute.View;
 using truecryptbrute.WordList;
 using truecryptbrute.TrueCrypt;
 using System.Threading;
@@ -18,7 +19,7 @@ namespace truecryptbrute
         #region Private Data
 
         ConfigurationController config;
-        frmMain mainForm;
+        FrmMain mainForm;
         int wordListLineCnt;
         bool bStopAllCrackThreads = false;
         bool bIsCrackOperationFinished = true;
@@ -39,7 +40,7 @@ namespace truecryptbrute
         public void ShowMainGUI() {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            mainForm = new frmMain();
+            mainForm = new FrmMain();
 
             mainForm.StartCrackJob += new SimpleEventHandler(MainForm_StartCrackJob);
             mainForm.PauseCrackJob +=new SimpleEventHandler(MainForm_PauseCrackJob);
