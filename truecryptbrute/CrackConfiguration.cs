@@ -18,5 +18,6 @@ namespace truecryptbrute
         public bool UseKeyFiles = false;
         public List<string> KeyFiles = new List<string>();
         public int ThreadCount = 1;
+        public bool ShowPassword = true;
     }
 }

@@ -157,27 +157,46 @@ namespace truecryptbrute
             Crack();
         }
 
-        private void Crack(){
+        private void Crack()
+        {
             string thispass;
             Password pass;
 
-            while((thispass = WordListPasswordProvider.Instance.NextPassword()) != null && !bStopAllCrackThreads) {
-
+            while ((thispass = WordListPasswordProvider.Instance.NextPassword()) != null && !bStopAllCrackThreads)
+            {
                 pass = new Password(thispass);
 
-                if(config.Configuration.UseKeyFiles)
+                if (config.Configuration.UseKeyFiles)
+                {
                     pass.KeyfilePool = keyDataPool;
-                
-                if(header.DecryptVolumeHeader(pass.GetPasswordStructure())) {
-                    PasswordCracked(thispass);
+                }
+
+                try
+                {
+                    if (header.DecryptVolumeHeader(pass.GetPasswordStructure()))
+                    {
+                        PasswordCracked(thispass);
+                        break;
+                    }
+                    else
+                    {
+                        // failed pass
+                    }
+                }
+                catch (Exception ex)
+                {
+                    mainForm.LogAppend(ex.GetType().Name + " error decrypting volume header: " + ex.Message);
+                    StopAllCrackThreads();
                     break;
-                } else {
-                    // failed pass
                 }
             }
-            if(thispass == null) {
+
+            if (thispass == null)
+            {
                 WordListFinished();
-            } else {
+            }
+            else
+            {
                 bIsCrackOperationFinished = true;
                 ThreadStoped();
             }

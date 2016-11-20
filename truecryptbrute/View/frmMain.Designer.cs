@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.showPasswordCheckBox = new System.Windows.Forms.CheckBox();
             this.lblProgress = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.txtCurrentPass = new System.Windows.Forms.TextBox();
@@ -106,6 +107,18 @@
             this.tabPage1.Text = "Main";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // showPasswordCheckBox
+            // 
+            this.showPasswordCheckBox.AutoSize = true;
+            this.showPasswordCheckBox.Checked = true;
+            this.showPasswordCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.showPasswordCheckBox.Location = new System.Drawing.Point(288, 90);
+            this.showPasswordCheckBox.Name = "showPasswordCheckBox";
+            this.showPasswordCheckBox.Size = new System.Drawing.Size(128, 21);
+            this.showPasswordCheckBox.TabIndex = 7;
+            this.showPasswordCheckBox.Text = "Show password";
+            this.showPasswordCheckBox.UseVisualStyleBackColor = true;
+            // 
             // lblProgress
             // 
             this.lblProgress.AutoSize = true;
@@ -157,6 +170,7 @@
             this.txtLog.Multiline = true;
             this.txtLog.Name = "txtLog";
             this.txtLog.Size = new System.Drawing.Size(695, 161);
+            this.txtLog.ReadOnly = true;
             this.txtLog.TabIndex = 1;
             // 
             // btnDoCrack
@@ -233,6 +247,7 @@
             this.btnLoadJobConfic.Size = new System.Drawing.Size(121, 22);
             this.btnLoadJobConfic.TabIndex = 14;
             this.btnLoadJobConfic.Text = "Load Job Confic";
+            this.btnLoadJobConfic.Text = "Load Job Config";
             this.btnLoadJobConfic.UseVisualStyleBackColor = true;
             this.btnLoadJobConfic.Click += new System.EventHandler(this.btnLoadJobConfic_Click);
             // 
@@ -245,6 +260,7 @@
             this.btnSaveConfic.Size = new System.Drawing.Size(121, 22);
             this.btnSaveConfic.TabIndex = 13;
             this.btnSaveConfic.Text = "Save Job Confic";
+            this.btnSaveConfic.Text = "Save Job Config";
             this.btnSaveConfic.UseVisualStyleBackColor = true;
             this.btnSaveConfic.Click += new System.EventHandler(this.btnSaveConfic_Click);
             // 
@@ -566,6 +582,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.CheckBox chkHiddenVolume;
         private System.Windows.Forms.Timer progressPollingTimer;
+        private System.Windows.Forms.CheckBox showPasswordCheckBox;
     }
 }
 

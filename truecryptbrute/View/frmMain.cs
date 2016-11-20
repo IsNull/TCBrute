@@ -27,6 +27,7 @@ namespace truecryptbrute.View
             this.chkHiddenVolume.CheckedChanged += new EventHandler(Config_Changed);
             this.chkKeyfiles.CheckedChanged += new EventHandler(chkKeyfiles_CheckedChanged);
             this.cboThreads.TextChanged += new EventHandler(Config_Changed);
+            this.showPasswordCheckBox.CheckedChanged += new EventHandler(Config_Changed);
 
             #endregion
 
@@ -116,6 +117,7 @@ namespace truecryptbrute.View
                 crkconfg.AttackHiddenVolume = this.chkHiddenVolume.Checked;
                 crkconfg.UseKeyFiles = this.chkKeyfiles.Checked;
                 crkconfg.WordListPath = this.txtWordListPath.Text;
+                crkconfg.ShowPassword = this.showPasswordCheckBox.Checked;
                 int offset;
                 if(Int32.TryParse(this.txtWordListOffset.Text, out offset)) {
                     crkconfg.WordListOffset = offset;
@@ -144,6 +146,7 @@ namespace truecryptbrute.View
                 this.txtWordListPath.Text = value.WordListPath;
                 this.txtWordListOffset.Text = value.WordListOffset.ToString();
                 this.cboThreads.Text = value.ThreadCount.ToString();
+                this.showPasswordCheckBox.Checked = value.ShowPassword;
                 _bDontUpdate = false;
             }
 
@@ -184,8 +187,8 @@ namespace truecryptbrute.View
             var progress = wordList.Progress;
 
             this.progressBar1.Value = progress;
-            this.txtCurrentPass.Text = wordList.LastPassword;
-            this.lblProgress.Text = wordList.CurrentPasswordIndex + "/" + wordList.PasswordCount + "[" + progress + "%]";
+            this.txtCurrentPass.Text = (showPasswordCheckBox.Checked ? wordList.LastPassword : null);
+            this.lblProgress.Text = wordList.CurrentPasswordIndex + "/" + wordList.PasswordCount + " [" + progress + "%]";
         }
 
         public void StartProgressTimer()
