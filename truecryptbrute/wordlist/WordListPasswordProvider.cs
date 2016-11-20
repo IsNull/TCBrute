@@ -27,18 +27,35 @@ namespace truecryptbrute.WordList
 
         #endregion
 
-        public event EventHandler<PasswordProgressEventArgs> PasswordProgressEvent;
-
         private StreamReader WordListReader;
         private int mLineReadCount = 0;
         private int mLineCount = 0;
+        private int mStartingLine = 1;
+        private string mLastPassword;
         private object Locker = new object();
 
-
-        public void LoadWordList(string WordListPath) {
-            if(File.Exists(WordListPath)){
+        /// <summary>
+        /// Load wordlist file.
+        /// </summary>
+        /// <param name="WordListPath">Path to wordlist file.</param>
+        /// <param name="lineCount">Optional line count (if known ahead of time, saves time on analysis).</param>
+        public void LoadWordList(string WordListPath, int? lineCount = null)
+        {
+            if (File.Exists(WordListPath))
+            {
                 WordListReader = new StreamReader(WordListPath);
-                WordlistAnalysis(WordListPath);
+                if (lineCount != null)
+                {
+                    this.mLineCount = (int)lineCount;
+                }
+                else
+                {
+                    WordlistAnalysis(WordListPath);
+                }
+
+                // Reset state
+                this.mLineReadCount = 0;
+                this.mLastPassword = null;
             }
         }
 
@@ -60,13 +77,71 @@ namespace truecryptbrute.WordList
             get{ return mLineReadCount; }
         }
 
-        public string NextPassword() {
-            lock(Locker) {
-                var pass = WordListReader.ReadLine();
-                if(pass != null)
-                    ++this.mLineReadCount;
-                if(PasswordProgressEvent != null)
-                    PasswordProgressEvent(this, new PasswordProgressEventArgs(mLineReadCount, mLineCount, pass));
+        /// <summary>
+        /// Line to start reading from in the wordfile.
+        /// </summary>
+        public int StartingLine
+        {
+            get
+            {
+                return this.mStartingLine;
+            }
+            set
+            {
+                this.mStartingLine = value;
+            }
+        }
+
+        /// <summary>
+        /// Wordfile progress percent.
+        /// </summary>
+        public int Progress
+        {
+            get
+            {
+                if (this.mLineCount > 0)
+                {
+                    return Math.Min(this.mLineReadCount / (this.mLineCount / 100), 100);
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Get the password read from the last call of NextPassword()
+        /// </summary>
+        public string LastPassword
+        {
+            get
+            {
+                return mLastPassword;
+            }
+        }
+
+        /// <summary>
+        /// Read the next password from the wordfile.
+        /// </summary>
+        /// <returns>Password</returns>
+        public string NextPassword()
+        {
+            string pass;
+
+            lock (Locker)
+            {
+                do
+                {
+                    pass = WordListReader.ReadLine();
+                    if (pass != null)
+                    {
+                        ++this.mLineReadCount;
+                    }
+                } while (this.mLineReadCount < this.mStartingLine);
+
+                this.mLastPassword = pass;
+
                 return pass;
             }
         }

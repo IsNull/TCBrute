@@ -88,7 +88,10 @@ namespace truecryptbrute
             mainForm.LogAppend("Configuration seems valid.");
             mainForm.LogAppend("Analyzing Wordlist...");
             WordListPasswordProvider.Instance.LoadWordList(config.Configuration.WordListPath);
-            WordListPasswordProvider.Instance.PasswordProgressEvent += Instance_WordListProgressEvent;
+            if (config.Configuration.WordListOffset > 0)
+            {
+                WordListPasswordProvider.Instance.StartingLine = config.Configuration.WordListOffset;
+            }
             wordListLineCnt = WordListPasswordProvider.Instance.PasswordCount;
             mainForm.LogAppend("Wordlist anaysis: " + WordListPasswordProvider.Instance.PasswordCount + " Passwords!");
 
@@ -129,6 +132,7 @@ namespace truecryptbrute
             Thread CrackThread;
 
             mainForm.LogAppend("Starting Crack Threads...");
+            mainForm.StartProgressTimer();
 
             bStopAllCrackThreads = false;
             bIsCrackOperationFinished = false;
@@ -180,7 +184,9 @@ namespace truecryptbrute
         }
 
 
-        private void StopAllCrackThreads() {
+        private void StopAllCrackThreads()
+        {
+            mainForm.StopProgressTimer();
 
             bStopAllCrackThreads = true;
             if(performanceWatch != null)
@@ -221,14 +227,5 @@ namespace truecryptbrute
                 thread.Resume();
             }
         }
-
-
-        private void Instance_WordListProgressEvent(object sender, PasswordProgressEventArgs e)
-        {
-            mainForm.SetProgress(e);
-        }
-
-
-
     }
 }

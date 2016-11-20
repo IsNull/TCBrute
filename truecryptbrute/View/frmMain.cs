@@ -140,6 +140,7 @@ namespace truecryptbrute.View
                 this.txtTargetVolume.Text = value.ContainerPath;
                 this.chkIsSystemVol.Checked = value.MountAsSystemVolume;
                 this.chkHiddenVolume.Checked = value.AttackHiddenVolume;
+                this.chkKeyfiles.Checked = value.UseKeyFiles;
                 this.txtWordListPath.Text = value.WordListPath;
                 this.txtWordListOffset.Text = value.WordListOffset.ToString();
                 this.cboThreads.Text = value.ThreadCount.ToString();
@@ -177,9 +178,24 @@ namespace truecryptbrute.View
             ConfigController.Configuration.KeyFiles = dlgKeyFile.KeyFiles;
         }
 
+        private void progressPollingTimer_Tick(object sender, EventArgs e)
+        {
+            var wordList = WordList.WordListPasswordProvider.Instance;
+            var progress = wordList.Progress;
 
+            this.progressBar1.Value = progress;
+            this.txtCurrentPass.Text = wordList.LastPassword;
+            this.lblProgress.Text = wordList.CurrentPasswordIndex + "/" + wordList.PasswordCount + "[" + progress + "%]";
+        }
 
+        public void StartProgressTimer()
+        {
+            this.progressPollingTimer.Start();
+        }
 
-
+        public void StopProgressTimer()
+        {
+            this.progressPollingTimer.Stop();
+        }
     }
 }

@@ -54,28 +54,6 @@ namespace truecryptbrute.View
 
         #endregion
 
-        #region Progress
-
-        public void SetProgress(PasswordProgressEventArgs e)
-        {
-
-            if(this.InvokeRequired) {
-                BeginInvoke(new GParameterDelegate<PasswordProgressEventArgs>(SetProgress), new object[] { e });
-                return;
-            } else {
-                float full = e.WordListLineCount;
-                float current = e.WordListCurrentLine;
-                int percent = (int)(100f / full * current);
-                percent = (percent > 100) ? 100 : percent;
-                percent = (percent < 0) ? 0 : percent;
-                this.progressBar1.Value = (int)percent;
-                this.txtCurrentPass.Text = e.WordListCurrentPass;
-                this.lblProgress.Text = e.WordListCurrentLine + "/" + e.WordListLineCount + "[" + percent + "%]";
-            }
-        }
-
-        #endregion
-
         #region Button
 
         public void SetButtonStart(bool b){

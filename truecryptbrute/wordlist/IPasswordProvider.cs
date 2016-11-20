@@ -7,6 +7,7 @@ namespace truecryptbrute.Wordlist
         void LoadWordList(string WordListPath);
         string NextPassword();
         int PasswordCount { get; }
-        event EventHandler<PasswordProgressEventArgs> PasswordProgressEvent;
+        int Progress { get; }
+        string LastPassword { get; }
     }
 }

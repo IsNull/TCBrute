@@ -64,6 +64,7 @@
             this.cboThreads = new System.Windows.Forms.ComboBox();
             this.MainTitle = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.progressPollingTimer = new System.Windows.Forms.Timer(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -485,6 +486,11 @@
             this.label8.TabIndex = 3;
             this.label8.Text = "by IsNull - securityvision.ch 2012 ";
             // 
+            // progressPollingTimer
+            // 
+            this.progressPollingTimer.Interval = 500;
+            this.progressPollingTimer.Tick += new System.EventHandler(this.progressPollingTimer_Tick);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -559,6 +565,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.CheckBox chkHiddenVolume;
+        private System.Windows.Forms.Timer progressPollingTimer;
     }
 }
 
