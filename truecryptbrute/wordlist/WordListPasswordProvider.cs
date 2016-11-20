@@ -39,7 +39,7 @@ namespace truecryptbrute.WordList
         /// </summary>
         /// <param name="WordListPath">Path to wordlist file.</param>
         /// <param name="lineCount">Optional line count (if known ahead of time, saves time on analysis).</param>
-        public void LoadWordList(string WordListPath, int? lineCount = null)
+        public void LoadWordList(string WordListPath, int? lineCount)
         {
             if (File.Exists(WordListPath))
             {
