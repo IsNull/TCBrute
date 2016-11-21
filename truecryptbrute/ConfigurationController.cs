@@ -25,12 +25,20 @@ namespace truecryptbrute
             set { mConfiguration = value; }
         }
 
-        public void SaveCrackConfiguration(string DestinationPath){
-            if(File.Exists(DestinationPath))
-                File.Delete(DestinationPath);
-            Stream FileStream = File.OpenWrite(DestinationPath);
-            CrackConfigSerializer.Serialize(FileStream, mConfiguration);
-            FileStream.Close();
+        public void SaveCrackConfiguration(string DestinationPath)
+        {
+            try
+            {
+                using (var stream = File.Open(DestinationPath, FileMode.Create))
+                {
+                    CrackConfigSerializer.Serialize(stream, mConfiguration);
+                }
+            }
+            catch (System.SystemException ex)
+            {
+                System.Windows.Forms.MessageBox.Show(
+                    "Unable to save file because of " + ex.GetType().Name + " error: " + ex.Message, "Error");
+            }
         }
 
         public bool LoadCrackConfiguration(string DestinationPath)
