@@ -191,11 +191,17 @@ namespace truecryptbrute.View
             this.lblProgress.Text = wordList.CurrentPasswordIndex + "/" + wordList.PasswordCount + " [" + progress + "%]";
         }
 
+        /// <summary>
+        /// Start polling WordListPasswordProvider for progress information.
+        /// </summary>
         public void StartProgressTimer()
         {
             this.progressPollingTimer.Start();
         }
 
+        /// <summary>
+        /// Stop polling WordListPasswordProvider for progress information.
+        /// </summary>
         public void StopProgressTimer()
         {
             this.progressPollingTimer.Stop();
