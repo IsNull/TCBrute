@@ -91,6 +91,7 @@
             // tabPage1
             // 
             this.tabPage1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.tabPage1.Controls.Add(this.showPasswordCheckBox);
             this.tabPage1.Controls.Add(this.lblProgress);
             this.tabPage1.Controls.Add(this.label5);
             this.tabPage1.Controls.Add(this.txtCurrentPass);
@@ -162,6 +163,7 @@
             this.progressBar1.Location = new System.Drawing.Point(24, 20);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(695, 23);
+            this.progressBar1.Step = 1;
             this.progressBar1.TabIndex = 2;
             // 
             // txtLog
