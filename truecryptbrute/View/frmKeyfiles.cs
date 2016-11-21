@@ -13,11 +13,28 @@ namespace truecryptbrute.View
     {
         private List<string> LVData = null;
 
-        public frmKeyfiles(List<string> KeyFiles = null) {
+        public frmKeyfiles(List<string> KeyFiles = null)
+        {
             InitializeComponent();
-            if(KeyFiles != null) {
+            if (KeyFiles != null)
+            {
+                this.KeyFiles = KeyFiles;
+            }
+        }
+
+        public List<string> KeyFiles
+        {
+            get
+            {
+                CollectData();
+                return LVData;
+            }
+            set
+            {
                 ListViewItem lvi;
-                foreach(var file in KeyFiles) {
+                listView1.Items.Clear();
+                foreach (var file in value)
+                {
                     lvi = new ListViewItem();
                     lvi.Text = file;
                     listView1.Items.Add(lvi);
@@ -25,12 +42,6 @@ namespace truecryptbrute.View
             }
         }
 
-        public List<string> KeyFiles {
-            get {
-                CollectData();
-                return LVData;
-            }
-        }
         private void CollectData() {
             if(listView1.InvokeRequired) {
                 BeginInvoke(new SimpleDelegate(CollectData));
