@@ -27,6 +27,7 @@ namespace truecryptbrute.View
             this.chkHiddenVolume.CheckedChanged += new EventHandler(Config_Changed);
             this.chkKeyfiles.CheckedChanged += new EventHandler(chkKeyfiles_CheckedChanged);
             this.cboThreads.TextChanged += new EventHandler(Config_Changed);
+            this.showPasswordCheckBox.CheckedChanged += new EventHandler(Config_Changed);
 
             #endregion
 
@@ -116,6 +117,7 @@ namespace truecryptbrute.View
                 crkconfg.AttackHiddenVolume = this.chkHiddenVolume.Checked;
                 crkconfg.UseKeyFiles = this.chkKeyfiles.Checked;
                 crkconfg.WordListPath = this.txtWordListPath.Text;
+                crkconfg.ShowPassword = this.showPasswordCheckBox.Checked;
                 int offset;
                 if(Int32.TryParse(this.txtWordListOffset.Text, out offset)) {
                     crkconfg.WordListOffset = offset;
@@ -140,9 +142,11 @@ namespace truecryptbrute.View
                 this.txtTargetVolume.Text = value.ContainerPath;
                 this.chkIsSystemVol.Checked = value.MountAsSystemVolume;
                 this.chkHiddenVolume.Checked = value.AttackHiddenVolume;
+                this.chkKeyfiles.Checked = value.UseKeyFiles;
                 this.txtWordListPath.Text = value.WordListPath;
                 this.txtWordListOffset.Text = value.WordListOffset.ToString();
                 this.cboThreads.Text = value.ThreadCount.ToString();
+                this.showPasswordCheckBox.Checked = value.ShowPassword;
                 _bDontUpdate = false;
             }
 
@@ -177,9 +181,30 @@ namespace truecryptbrute.View
             ConfigController.Configuration.KeyFiles = dlgKeyFile.KeyFiles;
         }
 
+        private void progressPollingTimer_Tick(object sender, EventArgs e)
+        {
+            var wordList = WordList.WordListPasswordProvider.Instance;
+            var progress = wordList.Progress;
 
+            this.progressBar1.Value = progress;
+            this.txtCurrentPass.Text = (showPasswordCheckBox.Checked ? wordList.LastPassword : null);
+            this.lblProgress.Text = wordList.CurrentPasswordIndex + "/" + wordList.PasswordCount + " [" + progress + "%]";
+        }
 
+        /// <summary>
+        /// Start polling WordListPasswordProvider for progress information.
+        /// </summary>
+        public void StartProgressTimer()
+        {
+            this.progressPollingTimer.Start();
+        }
 
-
+        /// <summary>
+        /// Stop polling WordListPasswordProvider for progress information.
+        /// </summary>
+        public void StopProgressTimer()
+        {
+            this.progressPollingTimer.Stop();
+        }
     }
 }

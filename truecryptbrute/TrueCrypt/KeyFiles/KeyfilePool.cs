@@ -26,8 +26,8 @@ namespace truecryptbrute.TrueCrypt.KeyFiles
         public void FinalizeKeyDataPool() {
             byte[] buf;
             int bytesRead;
-            uint crc = 0xffffffff;
-            int writePos = 0;
+            uint crc;
+            int writePos;
 
             keyPool = new byte[KeyFileSettings.KEYFILE_POOL_SIZE];
 
@@ -35,6 +35,8 @@ namespace truecryptbrute.TrueCrypt.KeyFiles
 
                 buf = kf.GetKeyData();
                 bytesRead = buf.Count();
+                crc = 0xffffffff;
+                writePos = 0;
 
                 for (int i = 0; i < bytesRead; i++){
 

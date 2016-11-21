@@ -88,7 +88,10 @@ namespace truecryptbrute
             mainForm.LogAppend("Configuration seems valid.");
             mainForm.LogAppend("Analyzing Wordlist...");
             WordListPasswordProvider.Instance.LoadWordList(config.Configuration.WordListPath);
-            WordListPasswordProvider.Instance.PasswordProgressEvent += Instance_WordListProgressEvent;
+            if (config.Configuration.WordListOffset > 0)
+            {
+                WordListPasswordProvider.Instance.StartingLine = config.Configuration.WordListOffset;
+            }
             wordListLineCnt = WordListPasswordProvider.Instance.PasswordCount;
             mainForm.LogAppend("Wordlist anaysis: " + WordListPasswordProvider.Instance.PasswordCount + " Passwords!");
 
@@ -129,6 +132,7 @@ namespace truecryptbrute
             Thread CrackThread;
 
             mainForm.LogAppend("Starting Crack Threads...");
+            mainForm.StartProgressTimer();
 
             bStopAllCrackThreads = false;
             bIsCrackOperationFinished = false;
@@ -153,34 +157,55 @@ namespace truecryptbrute
             Crack();
         }
 
-        private void Crack(){
+        private void Crack()
+        {
             string thispass;
             Password pass;
 
-            while((thispass = WordListPasswordProvider.Instance.NextPassword()) != null && !bStopAllCrackThreads) {
-
+            while ((thispass = WordListPasswordProvider.Instance.NextPassword()) != null && !bStopAllCrackThreads)
+            {
                 pass = new Password(thispass);
 
-                if(config.Configuration.UseKeyFiles)
+                if (config.Configuration.UseKeyFiles)
+                {
                     pass.KeyfilePool = keyDataPool;
-                
-                if(header.DecryptVolumeHeader(pass.GetPasswordStructure())) {
-                    PasswordCracked(thispass);
+                }
+
+                try
+                {
+                    if (header.DecryptVolumeHeader(pass.GetPasswordStructure()))
+                    {
+                        PasswordCracked(thispass);
+                        break;
+                    }
+                    else
+                    {
+                        // failed pass
+                    }
+                }
+                catch (Exception ex)
+                {
+                    mainForm.LogAppend(ex.GetType().Name + " error decrypting volume header: " + ex.Message);
+                    StopAllCrackThreads();
                     break;
-                } else {
-                    // failed pass
                 }
             }
-            if(thispass == null) {
+
+            if (thispass == null)
+            {
                 WordListFinished();
-            } else {
+            }
+            else
+            {
                 bIsCrackOperationFinished = true;
                 ThreadStoped();
             }
         }
 
 
-        private void StopAllCrackThreads() {
+        private void StopAllCrackThreads()
+        {
+            mainForm.StopProgressTimer();
 
             bStopAllCrackThreads = true;
             if(performanceWatch != null)
@@ -221,14 +246,5 @@ namespace truecryptbrute
                 thread.Resume();
             }
         }
-
-
-        private void Instance_WordListProgressEvent(object sender, PasswordProgressEventArgs e)
-        {
-            mainForm.SetProgress(e);
-        }
-
-
-
     }
 }

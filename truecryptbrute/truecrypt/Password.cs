@@ -152,9 +152,10 @@ namespace truecryptbrute.TrueCrypt
 
         public truecryptbrute.TrueCrypt.KeyFiles.KeyfilePool KeyfilePool {
             get {
-                throw new System.NotImplementedException();
+                return appliedPool;
             }
             set {
+                appliedPool = value;
             }
         }
 
